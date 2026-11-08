@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전남광주 SOOP 수퍼스 - 프로배구단 공식 안내</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00B050;
+            --primary-dark: #008037;
+            --secondary: #0A192F;
+            --accent: #FFD700;
+            --bg-light: #F8F9FA;
+            --text-dark: #1E293B;
+            --text-muted: #64748B;
+            --white: #FFFFFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Noto Sans KR', sans-serif; }
+        body { background-color: var(--bg-light); color: var(--text-dark); line-height: 1.6; }
+
+        header {
+            background-color: var(--secondary);
+            color: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+        }
+        .logo { font-size: 1.5rem; font-weight: 900; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        .logo span { color: var(--white); }
+        .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+        .nav-links a { color: var(--white); text-decoration: none; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--primary); }
+
+        .hero {
+            background: linear-gradient(135deg, rgba(10,25,47,0.95), rgba(0,176,80,0.85)), url('https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?auto=format&fit=crop&w=1600&q=80') center/cover;
+            color: var(--white);
+            padding: 6rem 1.5rem;
+            text-align: center;
+        }
+        .hero h1 { font-size: 3rem; font-weight: 900; margin-bottom: 1rem; }
+        .hero p { font-size: 1.25rem; max-width: 800px; margin: 0 auto 2rem; color: #E2E8F0; }
+        .slogan { display: inline-block; background-color: var(--primary); color: var(--white); padding: 0.5rem 1.5rem; border-radius: 50px; font-weight: 700; margin-bottom: 1rem; }
+
+        section { max-width: 1200px; margin: 4rem auto; padding: 0 1.5rem; }
+        .section-title { font-size: 2rem; font-weight: 800; color: var(--secondary); margin-bottom: 2rem; border-left: 5px solid var(--primary); padding-left: 1rem; }
+
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+        .info-card { background: var(--white); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .info-card h3 { color: var(--primary-dark); font-size: 0.9rem; text-transform: uppercase; margin-bottom: 0.5rem; }
+        .info-card p { font-size: 1.2rem; font-weight: 700; color: var(--secondary); }
+
+        .roster-filter { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .filter-btn { padding: 0.5rem 1.2rem; border: none; background-color: var(--white); color: var(--text-muted); border-radius: 20px; font-weight: 600; cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .filter-btn.active, .filter-btn:hover { background-color: var(--primary); color: var(--white); }
+
+        .player-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; }
+        .player-card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: transform 0.2s; position: relative; }
+        .player-card:hover { transform: translateY(-5px); }
+        .player-badge { position: absolute; top: 12px; right: 12px; background: var(--secondary); color: var(--white); padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.8rem; font-weight: 700; }
+        .player-badge.captain { background: var(--accent); color: var(--secondary); }
+        .player-info { padding: 1.5rem; text-align: center; }
+        .player-pos { color: var(--primary-dark); font-weight: 700; font-size: 0.85rem; }
+        .player-name { font-size: 1.3rem; font-weight: 800; margin: 0.2rem 0; color: var(--secondary); }
+
+        .match-results-box { background: var(--white); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 2rem; border-left: 5px solid var(--primary); }
+        .match-results-box h3 { font-size: 1.1rem; color: var(--secondary); margin-bottom: 0.8rem; font-weight: 700; }
+        .match-result-item { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0; border-bottom: 1px solid #F1F5F9; font-size: 0.95rem; }
+        .match-result-item:last-child { border-bottom: none; }
+        .match-score { font-weight: 800; color: var(--primary-dark); }
+
+        .schedule-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        .calendar-nav { display: flex; align-items: center; gap: 1rem; }
+        .calendar-btn { background: var(--white); border: 1px solid #CBD5E1; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-weight: 600; }
+
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; background: var(--white); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .day-header { text-align: center; font-weight: 700; padding: 0.5rem; color: var(--text-muted); }
+        .day-header.sun { color: #E11D48; }
+        .day-header.sat { color: #2563EB; }
+        .day-cell { min-height: 90px; border: 1px solid #F1F5F9; border-radius: 6px; padding: 0.4rem; position: relative; }
+        .day-cell .date { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.3rem; }
+        .match-tag { font-size: 0.75rem; padding: 0.2rem 0.4rem; border-radius: 4px; margin-bottom: 0.2rem; color: var(--white); font-weight: 600; }
+        .match-tag.home { background-color: var(--primary); }
+        .match-tag.away { background-color: #64748B; }
+        .match-tag.cup { background-color: #D97706; }
+        .match-tag.done { background-color: #94A3B8; text-decoration: line-through; }
+
+        footer { background-color: var(--secondary); color: var(--text-muted); padding: 3rem 1.5rem; text-align: center; margin-top: 5rem; }
+        footer p { margin-bottom: 0.5rem; font-size: 0.9rem; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2rem; }
+            .calendar-grid { font-size: 0.8rem; }
+            .day-cell { min-height: 70px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">SOOP <span>수퍼스</span></a>
+            <ul class="nav-links">
+                <li><a href="#about">구단 소개</a></li>
+                <li><a href="#coach">코칭스태프</a></li>
+                <li><a href="#roster">선수단</a></li>
+                <li><a href="#schedule">시즌 일정</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="hero">
+        <span class="slogan">BUILD Together, WIN Together</span>
+        <h1>전남광주 SOOP 수퍼스</h1>
+        <p>전남광주를 연고로 2026년 새롭게 출발하는 도드람 V-리그 막내 여자 프로배구단</p>
+    </div>
+
+    <section id="about">
+        <h2 class="section-title">구단 개요</h2>
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>연고지</h3>
+                <p>전남광주통합특별시</p>
+            </div>
+            <div class="info-card">
+                <h3>홈구장</h3>
+                <p>SOOP 스타디움 (염주체육관)</p>
+            </div>
+            <div class="info-card">
+                <h3>초대 감독</h3>
+                <p>김세진 감독</p>
+            </div>
+            <div class="info-card">
+                <h3>주장</h3>
+                <p>한다혜 선수</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="coach">
+        <h2 class="section-title">코칭스태프</h2>
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>감독</h3>
+                <p>김세진</p>
+            </div>
+            <div class="info-card">
+                <h3>수석코치</h3>
+                <p>진순기</p>
+            </div>
+            <div class="info-card">
+                <h3>코치</h3>
+                <p>김재훈</p>
+            </div>
+            <div class="info-card">
+                <h3>코치</h3>
+                <p>함형진</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="roster">
+        <h2 class="section-title">선수단 명단 (2026-27)</h2>
+        <div class="roster-filter">
+            <button class="filter-btn active" onclick="filterRoster('all')">전체</button>
+            <button class="filter-btn" onclick="filterRoster('OH')">아웃사이드 히터</button>
+            <button class="filter-btn" onclick="filterRoster('OP')">아포짓 스파이커</button>
+            <button class="filter-btn" onclick="filterRoster('MB')">미들 블로커</button>
+            <button class="filter-btn" onclick="filterRoster('S')">세터</button>
+            <button class="filter-btn" onclick="filterRoster('L')">리베로</button>
+        </div>
+        <div class="player-grid" id="playerGrid"></div>
+    </section>
+
+    <section id="schedule">
+        <h2 class="section-title">2026-27 시즌 경기 일정 & 결과</h2>
+        
+        <div class="match-results-box">
+            <h3>📌 최근 경기 결과</h3>
+            <div class="match-result-item">
+                <span>11.01 (원정) vs 흥국생명</span>
+                <span class="match-score">0 : 3 패 (세트스코어 20-25, 20-25, 22-25)</span>
+            </div>
+            <div class="match-result-item">
+                <span>11.05 (홈 개막전) vs 한국도로공사</span>
+                <span class="match-score">경기 종료 (업데이트 완료)</span>
+            </div>
+        </div>
+
+        <div class="schedule-controls">
+            <div class="calendar-nav">
+                <button class="calendar-btn" onclick="changeMonth(-1)">&lt; 이전달</button>
+                <h3 id="currentMonthDisplay" style="font-size: 1.2rem; font-weight: 700;">2026년 11월</h3>
+                <button class="calendar-btn" onclick="changeMonth(1)">다음달 &gt;</button>
+            </div>
+        </div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+    </section>
+
+    <footer>
+        <p>© 2026 SOOP SOOPers Volleyball Team. All rights reserved.</p>
+        <p>전남광주 SOOP 수퍼스 비공식 소개 및 경기 일정 안내 페이지입니다.</p>
+    </footer>
+
+    <script>
+        const players = [
+            { name: "한다혜", pos: "L", type: "L", captain: true },
+            { name: "고예림", pos: "OH", type: "OH" },
+            { name: "고의정", pos: "OH", type: "OH" },
+            { name: "전새얀", pos: "OH", type: "OH" },
+            { name: "송은채", pos: "OH", type: "OH" },
+            { name: "박은서", pos: "OH", type: "OH" },
+            { name: "서지혜", pos: "OH", type: "OH" },
+            { name: "이혜수", pos: "OH", type: "OH" },
+            { name: "오드리아나", pos: "OP", type: "OP", extra: "외국인" },
+            { name: "박연화", pos: "OP", type: "OP" },
+            { name: "임주은", pos: "MB", type: "MB" },
+            { name: "이즈 쉬エ", pos: "MB", type: "MB", extra: "아시아쿼터" },
+            { name: "김서영", pos: "MB", type: "MB" },
+            { name: "하혜진", pos: "MB", type: "MB" },
+            { name: "이원정", pos: "S", type: "S" },
+            { name: "김미주", pos: "S", type: "S" },
+            { name: "김주솔", pos: "S", type: "S" },
+            { name: "박수빈", pos: "S", type: "S" },
+            { name: "전하리", pos: "L", type: "L" },
+            { name: "유가람", pos: "L", type: "L" }
+        ];
+
+        const matches = [
+            { date: "2026-10-11", title: "KOVO컵 vs IBK", location: "여수", type: "cup" },
+            { date: "2026-10-13", title: "KOVO컵 vs 정관장", location: "여수", type: "cup" },
+            { date: "2026-10-15", title: "KOVO컵 vs 흥국생명", location: "여수", type: "cup" },
+            { date: "2026-11-01", title: "V리그 vs 흥국생명 (패)", location: "인천", type: "done" },
+            { date: "2026-11-05", title: "홈개막전 vs 도로공사", location: "SOOP스타디움", type: "done" },
+            { date: "2026-11-08", title: "V리그 vs GS칼텍스", location: "SOOP스타디움", type: "home" },
+            { date: "2026-11-12", title: "V리그 vs 현대건설", location: "수원", type: "away" },
+            { date: "2026-11-17", title: "V리그 vs 정관장", location: "SOOP스타디움", type: "home" },
+            { date: "2026-11-22", title: "V리그 vs IBK기업은행", location: "화성", type: "away" }
+        ];
+
+        let currentYear = 2026;
+        let currentMonth = 11;
+
+        function renderRoster(filter = 'all') {
+            const grid = document.getElementById('playerGrid');
+            grid.innerHTML = '';
+            
+            const filtered = filter === 'all' ? players : players.filter(p => p.type === filter);
+            
+            filtered.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'player-card';
+                card.innerHTML = `
+                    ${p.captain ? '<span class="player-badge captain">CAPTAIN</span>' : ''}
+                    ${p.extra ? `<span class="player-badge">${p.extra}</span>` : ''}
+                    <div class="player-info">
+                        <div class="player-pos">${getPosName(p.pos)}</div>
+                        <div class="player-name">${p.name}</div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function getPosName(pos) {
+            const map = { OH: '아웃사이드 히터', OP: '아포짓 스파이커', MB: '미들 블로커', S: '세터', L: '리베로' };
+            return map[pos] || pos;
+        }
+
+        function filterRoster(type) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderRoster(type);
+        }
+
+        function renderCalendar() {
+            const grid = document.getElementById('calendarGrid');
+            document.getElementById('currentMonthDisplay').innerText = `${currentYear}년 ${currentMonth}월`;
+            grid.innerHTML = '';
+
+            const days = ['일', '월', '화', '수', '목', '금', '토'];
+            days.forEach((d, idx) => {
+                const header = document.createElement('div');
+                header.className = `day-header ${idx === 0 ? 'sun' : idx === 6 ? 'sat' : ''}`;
+                header.innerText = d;
+                grid.appendChild(header);
+            });
+
+            const firstDay = new Date(currentYear, currentMonth - 1, 1).getDay();
+            const lastDate = new Date(currentYear, currentMonth, 0).getDate();
+
+            for (let i = 0; i < firstDay; i++) {
+                const empty = document.createElement('div');
+                empty.className = 'day-cell';
+                grid.appendChild(empty);
+            }
+
+            for (let date = 1; date <= lastDate; date++) {
+                const cell = document.createElement('div');
+                cell.className = 'day-cell';
+                cell.innerHTML = `<div class="date">${date}</div>`;
+
+                const dateStr = `${currentYear}-${String(currentMonth).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
+                const dayMatches = matches.filter(m => m.date === dateStr);
+
+                dayMatches.forEach(m => {
+                    const tag = document.createElement('div');
+                    tag.className = `match-tag ${m.type}`;
+                    tag.innerText = m.title;
+                    cell.appendChild(tag);
+                });
+
+                grid.appendChild(cell);
+            }
+        }
+
+        function changeMonth(delta) {
+            currentMonth += delta;
+            if (currentMonth > 12) { currentMonth = 1; currentYear++; }
+            if (currentMonth < 1) { currentMonth = 12; currentYear--; }
+            renderCalendar();
+        }
+
+        renderRoster();
+        renderCalendar();
+    </script>
+</body>
+</html>

@@ -286,26 +286,45 @@
 
     <script>
         const players = [
-            { name: "한다혜", pos: "L", type: "L", captain: true, birth: "1995.02.24", height: "177cm", desc: "팀의 든든한 주장 겸 주전 리베로. 뛰어난 수비 집중력과 리시브 안정감을 자랑합니다." },
-            { name: "고예림", pos: "OH", type: "OH", birth: "1994.06.12", height: "177cm", desc: "공수 균형이 잡힌 베테랑 아웃사이드 히터. 알토란같은 득점력과 허를 찌르는 공격이 장점입니다." },
-            { name: "고의정", pos: "OH", type: "OH", birth: "2000.07.05", height: "181cm", desc: "시원스러운 스파이크와 강력한 서브가 무기인 파워 히터." },
-            { name: "전새얀", pos: "OH", type: "OH", birth: "1996.02.12", height: "178cm", desc: "공격과 수비 모두 능수능란하게 소화하는 알짜배기 자원." },
-            { name: "송은채", pos: "OH", type: "OH", birth: "1999.01.07", height: "172cm", desc: "빠른 스피드와 악바리 근성을 가진 에너지 가이." },
-            { name: "박은서", pos: "OH", type: "OH", birth: "2000.03.24", height: "176cm", desc: "성장세를 이어가고 있는 젊은 피 아웃사이드 히터." },
-            { name: "서지혜", pos: "OH", type: "OH", birth: "2001.02.10", height: "180cm", desc: "높이를 활용한 타점 높은 공격이 돋보이는 유망주." },
-            { name: "이혜수", pos: "OH", type: "OH", birth: "2002.08.15", height: "175cm", desc: "팀에 활력을 불어넣는 패기 넘치는 플레이어." },
-            { name: "오드리아나", pos: "OP", type: "OP", extra: "외국인", birth: "1998.00.00", height: "192cm", desc: "팀의 주포를 담당하는 외국인 아포짓 스파이커. 압도적인 타점." },
-            { name: "박연화", pos: "OP", type: "OP", birth: "1999.05.11", height: "180cm", desc: "우직하게 반대편을 받쳐주는 아포짓 백업." },
-            { name: "임주은", pos: "MB", type: "MB", birth: "1997.10.01", height: "183cm", desc: "높은 블로킹 벽을 세우는 팀의 중앙 수비수." },
-            { name: "이즈 쉬에", pos: "MB", type: "MB", extra: "아시아쿼터", birth: "1999.00.00", height: "187cm", desc: "아시아쿼터로 합류해 중앙에 높이와 속공을 더해주는 미들 블로커." },
-            { name: "김서영", pos: "MB", type: "MB", birth: "2001.04.18", height: "182cm", desc: "빠른 이동 속공이 장기인 미들 블로커." },
-            { name: "하혜진", pos: "MB", type: "MB", birth: "1996.09.07", height: "181cm", desc: "풍부한 경험을 바탕으로 중앙을 든든히 지키는 베테랑." },
-            { name: "이원정", pos: "S", type: "S", birth: "2000.03.14", height: "177cm", desc: "팀의 공격을 진두지휘하는 주전 세터. 안정적인 볼 배급." },
-            { name: "김미주", pos: "S", type: "S", birth: "2002.01.01", height: "175cm", desc: "패기 있는 토스로 공격진을 살리는 젊은 세터." },
-            { name: "김주솔", pos: "S", type: "S", birth: "2003.05.05", height: "176cm", desc: "성장 잠재력이 풍부한 유망주 세터." },
-            { name: "박수빈", pos: "S", type: "S", birth: "2001.11.22", height: "173cm", desc: "교체로 들어가 분위기를 바꾸는 알토란 세터." },
-            { name: "전하리", pos: "L", type: "L", birth: "2004.02.10", height: "168cm", desc: "기민한 움직임과 안정적인 수비 실력을 가진 리베로." },
-            { name: "유가람", pos: "L", type: "L", birth: "2003.09.15", height: "170cm", desc: "투지 넘치는 플레이로 수비 라인에 힘을 보태는 리베로." }
+            { name: "한다혜", pos: "L", type: "L", captain: true, birth: "1995.02.24", height: "177cm", desc: "팀의 든든한 주장 겸 주전 리베로. 뛰어난 수비 집중력과 리시브 안정감을 자랑합니다." , img: "ekgP.webp" },
+            
+            { name: "고예림", pos: "OH", type: "OH", birth: "1994.06.12", height: "177cm", desc: "공수 균형이 잡힌 베테랑 아웃사이드 히터. 알토란같은 득점력과 허를 찌르는 공격이 장점입니다." , img: "dPfla.webp" },
+            
+            { name: "고의정", pos: "OH", type: "OH", birth: "2000.07.05", height: "181cm", desc: "시원스러운 스파이크와 강력한 서브가 무기인 파워 히터." , img: "dmlwjd.webp" },
+            
+            { name: "전새얀", pos: "OH", type: "OH", birth: "1996.02.12", height: "178cm", desc: "공격과 수비 모두 능수능란하게 소화하는 알짜배기 자원." , img: "todis.webp" },
+            
+            { name: "송은채", pos: "OH", type: "OH", birth: "1999.01.07", height: "172cm", desc: "빠른 스피드와 악바리 근성을 가진 에너지 가이." , img: "dmsco.webp" },
+            
+            { name: "박은서", pos: "OH", type: "OH", birth: "2000.03.24", height: "176cm", desc: "성장세를 이어가고 있는 젊은 피 아웃사이드 히터." , img: "dmstj.webp" },
+            
+            { name: "서지혜", pos: "OH", type: "OH", birth: "2001.02.10", height: "180cm", desc: "높이를 활용한 타점 높은 공격이 돋보이는 유망주." , img: "wlgP.webp" },
+            
+            { name: "이혜수", pos: "OH", type: "OH", birth: "2002.08.15", height: "175cm", desc: "팀에 활력을 불어넣는 패기 넘치는 플레이어." , img: "gPtn.webp" },
+            
+            { name: "오드리아나", pos: "OP", type: "OP", extra: "외국인", birth: "1997.10.30", height: "198cm", desc: "팀의 주포를 담당하는 외국인 아포짓 스파이커. 압도적인 타점." , img: "dhemfldksk.webp" },
+            
+            { name: "박연화", pos: "OP", type: "OP", birth: "1999.05.11", height: "180cm", desc: "우직하게 반대편을 받쳐주는 아포짓 백업." , img: "dusghk.webp" },
+            
+            { name: "임주은", pos: "MB", type: "MB", birth: "1997.10.01", height: "183cm", desc: "높은 블로킹 벽을 세우는 팀의 중앙 수비수." , img: "wndms.webp" },
+            
+            { name: "이즈 쉬에", pos: "MB", type: "MB", extra: "아시아쿼터", birth: "1999.00.00", height: "187cm", desc: "아시아쿼터로 합류해 중앙에 높이와 속공을 더해주는 미들 블로커." , img: "dlwmtnldp.webp" },
+            
+            { name: "김서영", pos: "MB", type: "MB", birth: "2001.04.18", height: "182cm", desc: "빠른 이동 속공이 장기인 미들 블로커." , img: "tjdud.webp" },
+            
+            { name: "하혜진", pos: "MB", type: "MB", birth: "1996.09.07", height: "181cm", desc: "풍부한 경험을 바탕으로 중앙을 든든히 지키는 베테랑." , img: "gPwls.webp" },
+            
+            { name: "이원정", pos: "S", type: "S", birth: "2000.03.14", height: "177cm", desc: "팀의 공격을 진두지휘하는 주전 세터. 안정적인 볼 배급." , img: "dnjswjd.webp" },
+            
+            { name: "김미주", pos: "S", type: "S", birth: "2002.01.01", height: "175cm", desc: "패기 있는 토스로 공격진을 살리는 젊은 세터." , img: "alwn.webp" },
+            
+            { name: "김주솔", pos: "S", type: "S", birth: "2003.05.05", height: "176cm", desc: "성장 잠재력이 풍부한 유망주 세터." , img: "wnthf.webp" },
+            
+            { name: "박수빈", pos: "S", type: "S", birth: "2001.11.22", height: "173cm", desc: "교체로 들어가 분위기를 바꾸는 알토란 세터." , img: "tnqls,webp" },
+            
+            { name: "전하리", pos: "L", type: "L", birth: "2004.02.10", height: "168cm", desc: "기민한 움직임과 안정적인 수비 실력을 가진 리베로." , img: "gkfl.webp" },
+            
+            { name: "유가람", pos: "L", type: "L", birth: "2003.09.15", height: "170cm", desc: "투지 넘치는 플레이로 수비 라인에 힘을 보태는 리베로." , img: "rkfka.webp" }
         ];
 
         const matches = [

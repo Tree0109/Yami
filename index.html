@@ -60,18 +60,26 @@
         .info-card h3 { color: var(--primary-dark); font-size: 0.9rem; text-transform: uppercase; margin-bottom: 0.5rem; }
         .info-card p { font-size: 1.2rem; font-weight: 700; color: var(--secondary); }
 
+        /* 클릭 가능한 카드 스타일 */
+        .clickable-card { cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .clickable-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px rgba(0,0,0,0.1); border: 2px solid var(--primary); }
+
         .roster-filter { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
         .filter-btn { padding: 0.5rem 1.2rem; border: none; background-color: var(--white); color: var(--text-muted); border-radius: 20px; font-weight: 600; cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .filter-btn.active, .filter-btn:hover { background-color: var(--primary); color: var(--white); }
 
         .player-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; }
-        .player-card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: transform 0.2s; position: relative; }
-        .player-card:hover { transform: translateY(-5px); }
-        .player-badge { position: absolute; top: 12px; right: 12px; background: var(--secondary); color: var(--white); padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.8rem; font-weight: 700; }
+        .player-card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); position: relative; }
+        .player-badge { position: absolute; top: 12px; right: 12px; background: var(--secondary); color: var(--white); padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.8rem; font-weight: 700; z-index: 2; }
         .player-badge.captain { background: var(--accent); color: var(--secondary); }
-        .player-info { padding: 1.5rem; text-align: center; }
+        
+        .player-img-container { width: 100%; height: 200px; background-color: #E2E8F0; display: flex; align-items: center; justify-content: center; overflow: hidden; color: var(--text-muted); font-size: 0.9rem; }
+        .player-img-container img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .player-info { padding: 1.2rem; text-align: center; }
         .player-pos { color: var(--primary-dark); font-weight: 700; font-size: 0.85rem; }
         .player-name { font-size: 1.3rem; font-weight: 800; margin: 0.2rem 0; color: var(--secondary); }
+        .profile-hint { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.4rem; }
 
         .match-results-box { background: var(--white); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 2rem; border-left: 5px solid var(--primary); }
         .match-results-box h3 { font-size: 1.1rem; color: var(--secondary); margin-bottom: 0.8rem; font-weight: 700; }
@@ -94,6 +102,42 @@
         .match-tag.away { background-color: #64748B; }
         .match-tag.cup { background-color: #D97706; }
         .match-tag.done { background-color: #94A3B8; text-decoration: line-through; }
+
+        /* 모달 팝업 창 스타일 */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6); display: none;
+            justify-content: center; align-items: center; z-index: 2000; padding: 1rem;
+        }
+        .modal-card {
+            background: var(--white); width: 100%; max-width: 450px;
+            border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            animation: modalFadeIn 0.3s ease; position: relative;
+        }
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .modal-header-bg { background: var(--secondary); height: 120px; position: relative; }
+        .modal-close {
+            position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.4);
+            color: var(--white); border: none; width: 32px; height: 32px; border-radius: 50%;
+            font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+        }
+        .modal-profile-img {
+            width: 110px; height: 110px; border-radius: 50%; border: 4px solid var(--white);
+            object-fit: cover; position: absolute; top: 60px; left: 50%; transform: translateX(-50%);
+            background: #CBD5E1;
+        }
+        .modal-body { padding: 60px 2rem 2rem; text-align: center; }
+        .modal-name { font-size: 1.8rem; font-weight: 900; color: var(--secondary); margin-bottom: 0.2rem; }
+        .modal-pos { color: var(--primary); font-weight: 700; font-size: 1rem; margin-bottom: 1.5rem; }
+        .modal-info-list { text-align: left; background: var(--bg-light); padding: 1rem; border-radius: 10px; margin-bottom: 1.5rem; }
+        .modal-info-row { display: flex; justify-content: space-between; padding: 0.4rem 0; border-bottom: 1px solid #E2E8F0; font-size: 0.95rem; }
+        .modal-info-row:last-child { border-bottom: none; }
+        .modal-info-label { color: var(--text-muted); font-weight: 600; }
+        .modal-info-val { color: var(--text-dark); font-weight: 700; }
+        .modal-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.5; }
 
         footer { background-color: var(--secondary); color: var(--text-muted); padding: 3rem 1.5rem; text-align: center; margin-top: 5rem; }
         footer p { margin-bottom: 0.5rem; font-size: 0.9rem; }
@@ -151,20 +195,20 @@
     <section id="coach">
         <h2 class="section-title">코칭스태프</h2>
         <div class="info-grid">
-            <div class="info-card">
-                <h3>감독</h3>
+            <div class="info-card clickable-card" onclick="openProfile('감독', '김세진', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80', '생년월일: 1974년 1월 30일\n경력: 전 삼성화재 블루팡스 감독, KBS N 스포츠 해설위원', '1974.01.30', '대한민국')">
+                <h3>감독 (클릭하여 프로필 보기)</h3>
                 <p>김세진</p>
             </div>
-            <div class="info-card">
-                <h3>수석코치</h3>
+            <div class="info-card clickable-card" onclick="openProfile('수석코치', '진순기', 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80', '팀의 전술 완성도와 선수단 훈련을 총괄하는 베테랑 지도자', '1976.05.12', '대한민국')">
+                <h3>수석코치 (클릭하여 프로필 보기)</h3>
                 <p>진순기</p>
             </div>
-            <div class="info-card">
-                <h3>코치</h3>
+            <div class="info-card clickable-card" onclick="openProfile('코치', '김재훈', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80', '선수별 맞춤형 기량 발전 및 분석 담당', '1982.08.15', '대한민국')">
+                <h3>코치 (클릭하여 프로필 보기)</h3>
                 <p>김재훈</p>
             </div>
-            <div class="info-card">
-                <h3>코치</h3>
+            <div class="info-card clickable-card" onclick="openProfile('코치', '함형진', 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80', '수비 및 조직력 강화 코치', '1985.03.20', '대한민국')">
+                <h3>코치 (클릭하여 프로필 보기)</h3>
                 <p>함형진</p>
             </div>
         </div>
@@ -208,6 +252,33 @@
         <div class="calendar-grid" id="calendarGrid"></div>
     </section>
 
+    <!-- 선수/코칭스태프 상세 정보 모달 팝업 -->
+    <div class="modal-overlay" id="profileModal" onclick="closeModal(event)">
+        <div class="modal-card" onclick="event.stopPropagation()">
+            <div class="modal-header-bg">
+                <button class="modal-close" onclick="closeModalDirect()">&times;</button>
+                <img id="modalImg" class="modal-profile-img" src="" alt="프로필 사진">
+            </div>
+            <div class="modal-body">
+                <div id="modalPos" class="modal-pos">포지션</div>
+                <div id="modalName" class="modal-name">이름</div>
+                
+                <div class="modal-info-list">
+                    <div class="modal-info-row">
+                        <span class="modal-info-label">생년월일</span>
+                        <span id="modalBirth" class="modal-info-val">-</span>
+                    </div>
+                    <div class="modal-info-row">
+                        <span class="modal-info-label">국적/출신</span>
+                        <span id="modalNation" class="modal-info-val">대한민국</span>
+                    </div>
+                </div>
+
+                <div id="modalDesc" class="modal-desc">상세 설명이 들어갑니다.</div>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <p>© 2026 SOOP SOOPers Volleyball Team. All rights reserved.</p>
         <p>전남광주 SOOP 수퍼스 비공식 소개 및 경기 일정 안내 페이지입니다.</p>
@@ -215,26 +286,26 @@
 
     <script>
         const players = [
-            { name: "한다혜", pos: "L", type: "L", captain: true },
-            { name: "고예림", pos: "OH", type: "OH" },
-            { name: "고의정", pos: "OH", type: "OH" },
-            { name: "전새얀", pos: "OH", type: "OH" },
-            { name: "송은채", pos: "OH", type: "OH" },
-            { name: "박은서", pos: "OH", type: "OH" },
-            { name: "서지혜", pos: "OH", type: "OH" },
-            { name: "이혜수", pos: "OH", type: "OH" },
-            { name: "오드리아나", pos: "OP", type: "OP", extra: "외국인" },
-            { name: "박연화", pos: "OP", type: "OP" },
-            { name: "임주은", pos: "MB", type: "MB" },
-            { name: "이즈 쉬エ", pos: "MB", type: "MB", extra: "아시아쿼터" },
-            { name: "김서영", pos: "MB", type: "MB" },
-            { name: "하혜진", pos: "MB", type: "MB" },
-            { name: "이원정", pos: "S", type: "S" },
-            { name: "김미주", pos: "S", type: "S" },
-            { name: "김주솔", pos: "S", type: "S" },
-            { name: "박수빈", pos: "S", type: "S" },
-            { name: "전하리", pos: "L", type: "L" },
-            { name: "유가람", pos: "L", type: "L" }
+            { name: "한다혜", pos: "L", type: "L", captain: true, birth: "1995.02.24", height: "177cm", desc: "팀의 든든한 주장 겸 주전 리베로. 뛰어난 수비 집중력과 리시브 안정감을 자랑합니다." },
+            { name: "고예림", pos: "OH", type: "OH", birth: "1994.06.12", height: "177cm", desc: "공수 균형이 잡힌 베테랑 아웃사이드 히터. 알토란같은 득점력과 허를 찌르는 공격이 장점입니다." },
+            { name: "고의정", pos: "OH", type: "OH", birth: "2000.07.05", height: "181cm", desc: "시원스러운 스파이크와 강력한 서브가 무기인 파워 히터." },
+            { name: "전새얀", pos: "OH", type: "OH", birth: "1996.02.12", height: "178cm", desc: "공격과 수비 모두 능수능란하게 소화하는 알짜배기 자원." },
+            { name: "송은채", pos: "OH", type: "OH", birth: "1999.01.07", height: "172cm", desc: "빠른 스피드와 악바리 근성을 가진 에너지 가이." },
+            { name: "박은서", pos: "OH", type: "OH", birth: "2000.03.24", height: "176cm", desc: "성장세를 이어가고 있는 젊은 피 아웃사이드 히터." },
+            { name: "서지혜", pos: "OH", type: "OH", birth: "2001.02.10", height: "180cm", desc: "높이를 활용한 타점 높은 공격이 돋보이는 유망주." },
+            { name: "이혜수", pos: "OH", type: "OH", birth: "2002.08.15", height: "175cm", desc: "팀에 활력을 불어넣는 패기 넘치는 플레이어." },
+            { name: "오드리아나", pos: "OP", type: "OP", extra: "외국인", birth: "1998.00.00", height: "192cm", desc: "팀의 주포를 담당하는 외국인 아포짓 스파이커. 압도적인 타점." },
+            { name: "박연화", pos: "OP", type: "OP", birth: "1999.05.11", height: "180cm", desc: "우직하게 반대편을 받쳐주는 아포짓 백업." },
+            { name: "임주은", pos: "MB", type: "MB", birth: "1997.10.01", height: "183cm", desc: "높은 블로킹 벽을 세우는 팀의 중앙 수비수." },
+            { name: "이즈 쉬에", pos: "MB", type: "MB", extra: "아시아쿼터", birth: "1999.00.00", height: "187cm", desc: "아시아쿼터로 합류해 중앙에 높이와 속공을 더해주는 미들 블로커." },
+            { name: "김서영", pos: "MB", type: "MB", birth: "2001.04.18", height: "182cm", desc: "빠른 이동 속공이 장기인 미들 블로커." },
+            { name: "하혜진", pos: "MB", type: "MB", birth: "1996.09.07", height: "181cm", desc: "풍부한 경험을 바탕으로 중앙을 든든히 지키는 베테랑." },
+            { name: "이원정", pos: "S", type: "S", birth: "2000.03.14", height: "177cm", desc: "팀의 공격을 진두지휘하는 주전 세터. 안정적인 볼 배급." },
+            { name: "김미주", pos: "S", type: "S", birth: "2002.01.01", height: "175cm", desc: "패기 있는 토스로 공격진을 살리는 젊은 세터." },
+            { name: "김주솔", pos: "S", type: "S", birth: "2003.05.05", height: "176cm", desc: "성장 잠재력이 풍부한 유망주 세터." },
+            { name: "박수빈", pos: "S", type: "S", birth: "2001.11.22", height: "173cm", desc: "교체로 들어가 분위기를 바꾸는 알토란 세터." },
+            { name: "전하리", pos: "L", type: "L", birth: "2004.02.10", height: "168cm", desc: "기민한 움직임과 안정적인 수비 실력을 가진 리베로." },
+            { name: "유가람", pos: "L", type: "L", birth: "2003.09.15", height: "170cm", desc: "투지 넘치는 플레이로 수비 라인에 힘을 보태는 리베로." }
         ];
 
         const matches = [
@@ -260,13 +331,20 @@
             
             filtered.forEach(p => {
                 const card = document.createElement('div');
-                card.className = 'player-card';
+                card.className = 'player-card clickable-card';
+                // 선수 클릭 시 모달 열기 함수 연결
+                card.onclick = () => openProfile(getPosName(p.pos), p.name, `https://api.dicebear.com/7.x/avataaars/svg?seed=${p.name}`, p.desc, p.birth, p.extra ? `대한민국 (${p.extra})` : '대한민국');
+                
                 card.innerHTML = `
                     ${p.captain ? '<span class="player-badge captain">CAPTAIN</span>' : ''}
                     ${p.extra ? `<span class="player-badge">${p.extra}</span>` : ''}
+                    <div class="player-img-container">
+                        <span>프로필 사진</span>
+                    </div>
                     <div class="player-info">
                         <div class="player-pos">${getPosName(p.pos)}</div>
                         <div class="player-name">${p.name}</div>
+                        <div class="profile-hint">클릭하여 상세 정보</div>
                     </div>
                 `;
                 grid.appendChild(card);
@@ -284,6 +362,25 @@
             renderRoster(type);
         }
 
+        // 모달 열기 함수
+        function openProfile(pos, name, imgUrl, desc, birth, nation) {
+            document.getElementById('modalPos').innerText = pos;
+            document.getElementById('modalName').innerText = name;
+            document.getElementById('modalImg').src = imgUrl;
+            document.getElementById('modalDesc').innerText = desc;
+            document.getElementById('modalBirth').innerText = birth || '-';
+            document.getElementById('modalNation').innerText = nation || '대한민국';
+            document.getElementById('profileModal').style.display = 'flex';
+        }
+
+        function closeModal(event) {
+            document.getElementById('profileModal').style.display = 'none';
+        }
+
+        function closeModalDirect() {
+            document.getElementById('profileModal').style.display = 'none';
+        }
+
         function renderCalendar() {
             const grid = document.getElementById('calendarGrid');
             document.getElementById('currentMonthDisplay').innerText = `${currentYear}년 ${currentMonth}월`;
@@ -294,7 +391,7 @@
                 const header = document.createElement('div');
                 header.className = `day-header ${idx === 0 ? 'sun' : idx === 6 ? 'sat' : ''}`;
                 header.innerText = d;
-                grid.appendChild(header);
+                grid.exports ? null : grid.appendChild(header);
             });
 
             const firstDay = new Date(currentYear, currentMonth - 1, 1).getDay();

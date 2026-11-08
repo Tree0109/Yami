@@ -95,7 +95,7 @@
         .day-header { text-align: center; font-weight: 700; padding: 0.5rem; color: var(--text-muted); }
         .day-header.sun { color: #E11D48; }
         .day-header.sat { color: #2563EB; }
-        .day-cell { min-height: 90px; border: 1px solid #F1F5F9; border-radius: 6px; padding: 0.4rem; position: relative; }
+        .day-cell { min-height: 90px; border: 1px solid #F1F5F9; border-radius: 6px; padding: 0.4rem; position: relative; background: rgba(255, 255, 255, 0.9); }
         .day-cell .date { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.3rem; }
         .match-tag { font-size: 0.75rem; padding: 0.2rem 0.4rem; border-radius: 4px; margin-bottom: 0.2rem; color: var(--white); font-weight: 600; }
         .match-tag.home { background-color: var(--primary); }
@@ -142,9 +142,20 @@
         footer { background-color: var(--secondary); color: var(--text-muted); padding: 3rem 1.5rem; text-align: center; margin-top: 5rem; }
         footer p { margin-bottom: 0.5rem; font-size: 0.9rem; }
 
-        /* 일정표 섹션 배경 사진 설정 */
-        
+        /* 일정표 섹션 배경 사진 설정 (yamisup.webp 적용) */
+        #schedule {
+            background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('yamisup.webp') no-repeat center center / cover;
+            padding: 40px 20px;
+            border-radius: 16px;
+        }
 
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2rem; }
+            .calendar-grid { font-size: 0.8rem; }
+            .day-cell { min-height: 70px; }
+        }
+    </style>
 </head>
 <body>
 
@@ -300,7 +311,7 @@
     </footer>
 
     <script>
-const players = [
+        const players = [
             { name: "한다혜", pos: "L", type: "L", captain: true, birth: "1995.02.24", height: "177cm", desc: "팀의 든든한 주장 겸 주전 리베로. 뛰어난 수비 집중력과 리시브 안정감을 자랑합니다.", img: "ekgP.webp" },
             { name: "고예림", pos: "OH", type: "OH", birth: "1994.06.12", height: "177cm", desc: "공수 균형이 잡힌 베테랑 아웃사이드 히터. 알토란같은 득점력과 허를 찌르는 공격이 장점입니다.", img: "dPfla.webp" },
             { name: "고의정", pos: "OH", type: "OH", birth: "2000.07.05", height: "181cm", desc: "시원스러운 스파이크와 강력한 서브가 무기인 파워 히터.", img: "dmlwjd.webp" },
@@ -323,15 +334,13 @@ const players = [
             { name: "유가람", pos: "L", type: "L", birth: "2003.09.15", height: "170cm", desc: "투지 넘치는 플레이로 수비 라인에 힘을 보태는 리베로.", img: "rkfka.webp" }
         ];
 
-const matches = [
-            // 2026년 10월 (KOVO컵)
+        const matches = [
             { date: "2026-10-11", title: "컵 1차전 vs 기업은행", location: "여수", type: "cup" },
             { date: "2026-10-13", title: "컵 2차전 vs 정관장", location: "여수", type: "cup" },
             { date: "2026-10-15", title: "컵 3차전 vs 흥국생명", location: "여수", type: "cup" },
             { date: "2026-10-17", title: "컵 준결승", location: "여수", type: "cup" },
             { date: "2026-10-24", title: "컵 결승전", location: "여수", type: "cup" },
 
-            // 2026년 11월 (1~2라운드)
             { date: "2026-11-01", title: "1R 원정 vs 흥국생명", location: "인천", type: "done" },
             { date: "2026-11-05", title: "1R 홈개막 vs 도로공사", location: "광주", type: "done" },
             { date: "2026-11-11", title: "1R 원정 vs 현대건설", location: "수원", type: "away" },
@@ -340,7 +349,6 @@ const matches = [
             { date: "2026-11-22", title: "1R 홈 vs 정관장", location: "광주", type: "home" },
             { date: "2026-11-28", title: "2R 홈 vs 흥국생명", location: "광주", type: "home" },
 
-            // 2026년 12월 (2~3라운드)
             { date: "2026-12-02", title: "2R 원정 vs 도로공사", location: "김천", type: "away" },
             { date: "2026-12-06", title: "2R 홈 vs 현대건설", location: "광주", type: "home" },
             { date: "2026-12-11", title: "2R 원정 vs GS칼텍스", location: "서울", type: "away" },
@@ -349,7 +357,6 @@ const matches = [
             { date: "2026-12-26", title: "3R 원정 vs 흥국생명", location: "인천", type: "away" },
             { date: "2026-12-30", title: "3R 홈 vs 도로공사", location: "광주", type: "home" },
 
-            // 2027년 1월 (3~4라운드)
             { date: "2027-01-03", title: "3R 원정 vs 현대건설", location: "수원", type: "away" },
             { date: "2027-01-07", title: "3R 홈 vs GS칼텍스", location: "광주", type: "home" },
             { date: "2027-01-12", title: "3R 원정 vs 기업은행", location: "화성", type: "away" },
@@ -358,7 +365,6 @@ const matches = [
             { date: "2027-01-25", title: "4R 원정 vs 도로공사", location: "김천", type: "away" },
             { date: "2027-01-29", title: "4R 홈 vs 현대건설", location: "광주", type: "home" },
 
-            // 2027년 2월 (4~5라운드)
             { date: "2027-02-03", title: "4R 원정 vs GS칼텍스", location: "서울", type: "away" },
             { date: "2027-02-07", title: "4R 홈 vs 기업은행", location: "광주", type: "home" },
             { date: "2027-02-12", title: "4R 원정 vs 정관장", location: "대전", type: "away" },
@@ -366,7 +372,6 @@ const matches = [
             { date: "2027-02-21", title: "5R 홈 vs 도로공사", location: "광주", type: "home" },
             { date: "2027-02-26", title: "5R 원정 vs 현대건설", location: "수원", type: "away" },
 
-            // 2027년 3월 (5~6라운드)
             { date: "2027-03-02", title: "5R 홈 vs GS칼텍스", location: "광주", type: "home" },
             { date: "2027-03-07", title: "5R 원정 vs 기업은행", location: "화성", type: "away" },
             { date: "2027-03-12", title: "5R 홈 vs 정관장", location: "광주", type: "home" },
@@ -375,7 +380,6 @@ const matches = [
             { date: "2027-03-25", title: "6R 홈 vs 현대건설", location: "광주", type: "home" },
             { date: "2027-03-30", title: "6R 원정 vs GS칼텍스", location: "서울", type: "away" },
 
-            // 2027년 4월 (정규리그 최종전 및 포스트시즌)
             { date: "2027-04-01", title: "6R 홈 vs 기업은행", location: "광주", type: "home" },
             { date: "2027-04-02", title: "6R 원정 vs 정관장", location: "대전", type: "away" },
             { date: "2027-04-05", title: "준플레이오프 1차전", location: "-", type: "cup" },
@@ -398,7 +402,6 @@ const matches = [
             filtered.forEach(p => {
                 const card = document.createElement('div');
                 card.className = 'player-card clickable-card';
-                // 선수 클릭 시 p.img 파일을 모달로 넘기도록 수정
                 card.onclick = () => openProfile(getPosName(p.pos), p.name, p.img, p.desc, p.birth, p.extra ? `대한민국 (${p.extra})` : '대한민국');
                 
                 card.innerHTML = `
@@ -431,7 +434,7 @@ const matches = [
         function openProfile(pos, name, imgUrl, desc, birth, nation) {
             document.getElementById('modalPos').innerText = pos;
             document.getElementById('modalName').innerText = name;
-            document.getElementById('modalImg').src = imgUrl; // 모달창 이미지 경로 연결
+            document.getElementById('modalImg').src = imgUrl;
             document.getElementById('modalDesc').innerText = desc;
             document.getElementById('modalBirth').innerText = birth || '-';
             document.getElementById('modalNation').innerText = nation || '대한민국';

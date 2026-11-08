@@ -135,8 +135,24 @@
         .player-badge { position: absolute; top: 12px; right: 12px; background: var(--secondary); color: var(--white); padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.8rem; font-weight: 700; z-index: 2; }
         .player-badge.captain { background: var(--accent); color: var(--secondary); }
         
-        .player-img-container { width: 100%; height: 200px; background-color: #E2E8F0; display: flex; align-items: center; justify-content: center; overflow: hidden; color: var(--text-muted); font-size: 0.9rem; }
-        .player-img-container img { width: 100%; height: 100%; object-fit: cover; }
+        /* 코칭스태프 및 선수 프로필 사진 박스 비율 수정 */
+        .player-img-container { 
+            width: 100%; 
+            height: 260px; /* 높이를 260px로 확장하여 얼굴이 잘리지 않도록 변경 */
+            background-color: #F1F5F9; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            overflow: hidden; 
+            color: var(--text-muted); 
+            font-size: 0.9rem; 
+        }
+        .player-img-container img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: contain; /* 비율을 유지하면서 전체 모습이 다 보이도록 변경 */
+            object-position: top center; /* 정수리 영역부터 기준으로 정렬 */
+        }
         
         .player-info { padding: 1.2rem; text-align: center; }
         .player-pos { color: var(--primary-dark); font-weight: 700; font-size: 0.85rem; }
@@ -276,38 +292,46 @@
             <div class="info-grid">
                 <!-- 감독 -->
                 <div class="info-card clickable-card" onclick="openProfile('감독', '김세진', 'tpwls.webp', '생년월일: 1974년 1월 30일\n경력: 전 삼성화재 블루팡스 감독, KBS N 스포츠 해설위원', '1974.01.30', '대한민국')">
-                    <div class="player-img-container" style="height: 180px; border-radius: 8px; margin-bottom: 1rem;">
-                        <img src="tpwls.webp" alt="김세진 감독" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=김세진'">
+                    <div class="player-img-container">
+                        <img src="tpwls.webp" alt="김세진 감독" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=김세진'">
                     </div>
-                    <h3>감독</h3>
-                    <p>김세진</p>
+                    <div class="player-info">
+                        <div class="player-pos">감독</div>
+                        <div class="player-name">김세진</div>
+                    </div>
                 </div>
 
                 <!-- 수석코치 -->
                 <div class="info-card clickable-card" onclick="openProfile('수석코치', '진순기', 'tnsrl.webp', '팀의 전술 완성도와 선수단 훈련을 총괄하는 베테랑 지도자', '1976.05.12', '대한민국')">
-                    <div class="player-img-container" style="height: 180px; border-radius: 8px; margin-bottom: 1rem;">
-                        <img src="tnsrl.webp" alt="진순기 수석코치" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=진순기'">
+                    <div class="player-img-container">
+                        <img src="tnsrl.webp" alt="진순기 수석코치" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=진순기'">
                     </div>
-                    <h3>수석코치</h3>
-                    <p>진순기</p>
+                    <div class="player-info">
+                        <div class="player-pos">수석코치</div>
+                        <div class="player-name">진순기</div>
+                    </div>
                 </div>
 
                 <!-- 코치 -->
                 <div class="info-card clickable-card" onclick="openProfile('코치', '김재훈', 'wogns.webp', '선수별 맞춤형 기량 발전 및 분석 담당', '1982.08.15', '대한민국')">
-                    <div class="player-img-container" style="height: 180px; border-radius: 8px; margin-bottom: 1rem;">
-                        <img src="wogns.webp" alt="김재훈 코치" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=김재훈'">
+                    <div class="player-img-container">
+                        <img src="wogns.webp" alt="김재훈 코치" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=김재훈'">
                     </div>
-                    <h3>코치</h3>
-                    <p>김재훈</p>
+                    <div class="player-info">
+                        <div class="player-pos">코치</div>
+                        <div class="player-name">김재훈</div>
+                    </div>
                 </div>
 
                 <!-- 코치 -->
                 <div class="info-card clickable-card" onclick="openProfile('코치', '함형진', 'gudwls.webp', '수비 및 조직력 강화 코치', '1985.03.20', '대한민국')">
-                    <div class="player-img-container" style="height: 180px; border-radius: 8px; margin-bottom: 1rem;">
-                        <img src="gudwls.webp" alt="함형진 코치" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=함형진'">
+                    <div class="player-img-container">
+                        <img src="gudwls.webp" alt="함형진 코치" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=함형진'">
                     </div>
-                    <h3>코치</h3>
-                    <p>함형진</p>
+                    <div class="player-info">
+                        <div class="player-pos">코치</div>
+                        <div class="player-name">함형진</div>
+                    </div>
                 </div>
             </div>
         </div>

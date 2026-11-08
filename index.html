@@ -130,13 +130,11 @@
         .info-card h3 { color: var(--primary-dark); font-size: 0.9rem; text-transform: uppercase; margin-bottom: 0.5rem; }
         .info-card p { font-size: 1.2rem; font-weight: 700; color: var(--secondary); }
 
-        /* 타임라인 스타일 */
+        /* 타임라인 스타일 (투명도 조절 및 블러 효과 적용) */
         .timeline-container {
-            /* 0.92 -> 0.70 으로 변경하여 배경이 더 은은하게 비치도록 설정 */
-            background: rgba(10, 25, 47, 0.7); 
-            /* 은은한 테두리를 더해 글씨 시독성을 확보해 줍니다 */
+            background: rgba(10, 25, 47, 0.7);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(8px); /* 뒤에 있는 배경 사진을 감성 있게 블러 처리 */
+            backdrop-filter: blur(8px);
             color: #FFFFFF;
             padding: 2.5rem;
             border-radius: 16px;
@@ -151,7 +149,7 @@
         .timeline-list {
             position: relative;
             padding-left: 20px;
-            border-left: 2px solid #1E293B;
+            border-left: 2px solid rgba(255, 255, 255, 0.15);
             margin-left: 10px;
             display: flex;
             flex-direction: column;
@@ -180,10 +178,10 @@
             left: -28px;
         }
 
-        .timeline-date { color: var(--primary); font-size: 0.9rem; font-weight: 800; margin-bottom: 0.2rem; }
-        .timeline-item.highlight .timeline-date { color: #00b050; }
+        .timeline-date { color: #60a5fa; font-size: 0.9rem; font-weight: 800; margin-bottom: 0.2rem; }
+        .timeline-item.highlight .timeline-date { color: #4ade80; }
         .timeline-event-title { font-size: 1.25rem; font-weight: 800; margin-bottom: 0.4rem; color: #FFFFFF; }
-        .timeline-event-desc { color: #CBD5E1; font-size: 0.95rem; line-height: 1.6; }
+        .timeline-event-desc { color: #E2E8F0; font-size: 0.95rem; line-height: 1.6; }
 
         .clickable-card { cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
         .clickable-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px rgba(0,0,0,0.1); border: 2px solid var(--primary); }
@@ -348,7 +346,7 @@
                 <div class="timeline-header">
                     <div class="timeline-subtitle">HISTORY</div>
                     <div class="timeline-title">수퍼스가 생겨나기까지</div>
-                    <div class="timeline-desc">인수 발표부터 V-리그 데뷔까지, 숨 가빴던 2026년의 기록입니다.</div>
+                    <div class="timeline-desc">인수 발표부터 V-리그 데뷔 및 홈 개막까지의 기록입니다.</div>
                 </div>
 
                 <div class="timeline-list">
@@ -406,10 +404,16 @@
                         <div class="timeline-event-desc">여수 진남체육관, 2026 KOVO컵 개막전에서 IBK기업은행과 맞붙으며 첫발을 내디뎠습니다.</div>
                     </div>
 
-                    <div class="timeline-item highlight">
+                    <div class="timeline-item">
                         <div class="timeline-date">2026. 11. 1</div>
                         <div class="timeline-event-title">V-리그 데뷔전</div>
-                        <div class="timeline-event-desc">인천 삼산월드체육관에서 흥국생명에 세트스코어 0-3(20-25, 20-25, 22-25)으로 졌습니다. 3세트 중반까지 앞서며 가능성을 보였고, 오드리아나가 팀 최다 15점을 올렸습니다. 11월 5일에는 SOOP 스타디움에서 한국도로공사를 상대로 첫 홈경기를 치뤘습니다.</div>
+                        <div class="timeline-event-desc">인천 삼산월드체육관에서 흥국생명에 세트스코어 0-3(20-25, 20-25, 22-25)으로 졌습니다. 3세트 중반까지 앞서며 가능성을 보였고, 오드리아나가 팀 최다 15점을 올렸습니다.</div>
+                    </div>
+
+                    <div class="timeline-item highlight">
+                        <div class="timeline-date">2026. 11. 5</div>
+                        <div class="timeline-event-title">구단 첫 홈 개막전</div>
+                        <div class="timeline-event-desc">SOOP 스타디움(염주체육관)에서 한국도로공사를 상대로 역사적인 첫 홈경기를 치렀습니다.</div>
                     </div>
                 </div>
             </div>

@@ -308,16 +308,67 @@ const players = [
             { name: "유가람", pos: "L", type: "L", birth: "2003.09.15", height: "170cm", desc: "투지 넘치는 플레이로 수비 라인에 힘을 보태는 리베로.", img: "rkfka.webp" }
         ];
 
-        const matches = [
-            { date: "2026-10-11", title: "KOVO컵 vs IBK", location: "여수", type: "cup" },
-            { date: "2026-10-13", title: "KOVO컵 vs 정관장", location: "여수", type: "cup" },
-            { date: "2026-10-15", title: "KOVO컵 vs 흥국생명", location: "여수", type: "cup" },
-            { date: "2026-11-01", title: "V리그 vs 흥국생명 (패)", location: "인천", type: "done" },
-            { date: "2026-11-05", title: "홈개막전 vs 도로공사", location: "SOOP스타디움", type: "done" },
-            { date: "2026-11-08", title: "V리그 vs GS칼텍스", location: "SOOP스타디움", type: "home" },
-            { date: "2026-11-12", title: "V리그 vs 현대건설", location: "수원", type: "away" },
-            { date: "2026-11-17", title: "V리그 vs 정관장", location: "SOOP스타디움", type: "home" },
-            { date: "2026-11-22", title: "V리그 vs IBK기업은행", location: "화성", type: "away" }
+const matches = [
+            // 2026년 10월 (KOVO컵)
+            { date: "2026-10-11", title: "컵 1차전 vs 기업은행", location: "여수", type: "cup" },
+            { date: "2026-10-13", title: "컵 2차전 vs 정관장", location: "여수", type: "cup" },
+            { date: "2026-10-15", title: "컵 3차전 vs 흥국생명", location: "여수", type: "cup" },
+            { date: "2026-10-17", title: "컵 준결승", location: "여수", type: "cup" },
+            { date: "2026-10-24", title: "컵 결승전", location: "여수", type: "cup" },
+
+            // 2026년 11월 (1~2라운드)
+            { date: "2026-11-01", title: "1R 원정 vs 흥국생명", location: "인천", type: "done" },
+            { date: "2026-11-05", title: "1R 홈개막 vs 도로공사", location: "광주", type: "done" },
+            { date: "2026-11-11", title: "1R 원정 vs 현대건설", location: "수원", type: "away" },
+            { date: "2026-11-14", title: "1R 홈 vs GS칼텍스", location: "광주", type: "home" },
+            { date: "2026-11-17", title: "1R 원정 vs 기업은행", location: "화성", type: "away" },
+            { date: "2026-11-22", title: "1R 홈 vs 정관장", location: "광주", type: "home" },
+            { date: "2026-11-28", title: "2R 홈 vs 흥국생명", location: "광주", type: "home" },
+
+            // 2026년 12월 (2~3라운드)
+            { date: "2026-12-02", title: "2R 원정 vs 도로공사", location: "김천", type: "away" },
+            { date: "2026-12-06", title: "2R 홈 vs 현대건설", location: "광주", type: "home" },
+            { date: "2026-12-11", title: "2R 원정 vs GS칼텍스", location: "서울", type: "away" },
+            { date: "2026-12-16", title: "2R 홈 vs 기업은행", location: "광주", type: "home" },
+            { date: "2026-12-20", title: "2R 원정 vs 정관장", location: "대전", type: "away" },
+            { date: "2026-12-26", title: "3R 원정 vs 흥국생명", location: "인천", type: "away" },
+            { date: "2026-12-30", title: "3R 홈 vs 도로공사", location: "광주", type: "home" },
+
+            // 2027년 1월 (3~4라운드)
+            { date: "2027-01-03", title: "3R 원정 vs 현대건설", location: "수원", type: "away" },
+            { date: "2027-01-07", title: "3R 홈 vs GS칼텍스", location: "광주", type: "home" },
+            { date: "2027-01-12", title: "3R 원정 vs 기업은행", location: "화성", type: "away" },
+            { date: "2027-01-16", title: "3R 홈 vs 정관장", location: "광주", type: "home" },
+            { date: "2027-01-21", title: "4R 홈 vs 흥국생명", location: "광주", type: "home" },
+            { date: "2027-01-25", title: "4R 원정 vs 도로공사", location: "김천", type: "away" },
+            { date: "2027-01-29", title: "4R 홈 vs 현대건설", location: "광주", type: "home" },
+
+            // 2027년 2월 (4~5라운드)
+            { date: "2027-02-03", title: "4R 원정 vs GS칼텍스", location: "서울", type: "away" },
+            { date: "2027-02-07", title: "4R 홈 vs 기업은행", location: "광주", type: "home" },
+            { date: "2027-02-12", title: "4R 원정 vs 정관장", location: "대전", type: "away" },
+            { date: "2027-02-17", title: "5R 원정 vs 흥국생명", location: "인천", type: "away" },
+            { date: "2027-02-21", title: "5R 홈 vs 도로공사", location: "광주", type: "home" },
+            { date: "2027-02-26", title: "5R 원정 vs 현대건설", location: "수원", type: "away" },
+
+            // 2027년 3월 (5~6라운드)
+            { date: "2027-03-02", title: "5R 홈 vs GS칼텍스", location: "광주", type: "home" },
+            { date: "2027-03-07", title: "5R 원정 vs 기업은행", location: "화성", type: "away" },
+            { date: "2027-03-12", title: "5R 홈 vs 정관장", location: "광주", type: "home" },
+            { date: "2027-03-16", title: "6R 홈 vs 흥국생명", location: "광주", type: "home" },
+            { date: "2027-03-20", title: "6R 원정 vs 도로공사", location: "김천", type: "away" },
+            { date: "2027-03-25", title: "6R 홈 vs 현대건설", location: "광주", type: "home" },
+            { date: "2027-03-30", title: "6R 원정 vs GS칼텍스", location: "서울", type: "away" },
+
+            // 2027년 4월 (정규리그 최종전 및 포스트시즌)
+            { date: "2027-04-01", title: "6R 홈 vs 기업은행", location: "광주", type: "home" },
+            { date: "2027-04-02", title: "6R 원정 vs 정관장", location: "대전", type: "away" },
+            { date: "2027-04-05", title: "준플레이오프 1차전", location: "-", type: "cup" },
+            { date: "2027-04-06", title: "준플레이오프 2차전", location: "-", type: "cup" },
+            { date: "2027-04-07", title: "플레이오프 1차전", location: "-", type: "cup" },
+            { date: "2027-04-12", title: "플레이오프 종료", location: "-", type: "cup" },
+            { date: "2027-04-13", title: "챔피언결정전 시작", location: "-", type: "cup" },
+            { date: "2027-04-21", title: "챔피언결정전 종료", location: "-", type: "cup" }
         ];
 
         let currentYear = 2026;

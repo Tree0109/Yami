@@ -132,7 +132,11 @@
 
         /* 타임라인 스타일 */
         .timeline-container {
-            background: rgba(10, 25, 47, 0.92);
+            /* 0.92 -> 0.70 으로 변경하여 배경이 더 은은하게 비치도록 설정 */
+            background: rgba(10, 25, 47, 0.7); 
+            /* 은은한 테두리를 더해 글씨 시독성을 확보해 줍니다 */
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px); /* 뒤에 있는 배경 사진을 감성 있게 블러 처리 */
             color: #FFFFFF;
             padding: 2.5rem;
             border-radius: 16px;

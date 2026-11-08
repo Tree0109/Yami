@@ -15,52 +15,114 @@
             --text-dark: #1E293B;
             --text-muted: #64748B;
             --white: #FFFFFF;
+            --sidebar-width: 250px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Noto Sans KR', sans-serif; }
-        body { background-color: var(--bg-light); color: var(--text-dark); line-height: 1.6; }
+        body { background-color: var(--bg-light); color: var(--text-dark); display: flex; min-height: 100vh; overflow-x: hidden; }
 
-        header {
+        /* 좌측 사이드바 스타일 */
+        sidebar {
+            width: var(--sidebar-width);
             background-color: var(--secondary);
             color: var(--white);
-            position: sticky;
+            position: fixed;
             top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
+            left: 0;
+            height: 100vh;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            z-index: 1000;
+            box-shadow: 4px 0 12px rgba(0,0,0,0.15);
+        }
+
+        .sidebar-header {
+            padding: 2rem 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo { font-size: 1.4rem; font-weight: 900; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        .logo span { color: var(--white); }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 1.5rem 0;
+            flex: 1;
+        }
+
+        .sidebar-menu li a {
+            display: flex;
             align-items: center;
             padding: 1rem 1.5rem;
+            color: #E2E8F0;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.05rem;
+            transition: all 0.2s ease;
+            border-left: 4px solid transparent;
         }
-        .logo { font-size: 1.5rem; font-weight: 900; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 8px; }
-        .logo span { color: var(--white); }
-        .nav-links { display: flex; gap: 1.5rem; list-style: none; }
-        .nav-links a { color: var(--white); text-decoration: none; font-weight: 500; transition: color 0.2s; }
-        .nav-links a:hover { color: var(--primary); }
 
-        .hero {
+        .sidebar-menu li a:hover,
+        .sidebar-menu li a.active {
+            background-color: rgba(255, 255, 255, 0.08);
+            color: var(--white);
+            border-left-color: var(--primary);
+            font-weight: 700;
+        }
+
+        .sidebar-footer {
+            padding: 1.5rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* 우측 콘텐츠 영역 */
+        main {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 2.5rem;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        /* 화면 탭 전환 제어 */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 히어로 대시보드 카드 */
+        .hero-dashboard {
             background: linear-gradient(135deg, rgba(10,25,47,0.95), rgba(0,176,80,0.85)), url('https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?auto=format&fit=crop&w=1600&q=80') center/cover;
             color: var(--white);
-            padding: 6rem 1.5rem;
+            padding: 3.5rem 2rem;
+            border-radius: 16px;
+            margin-bottom: 2.5rem;
             text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
-        .hero h1 { font-size: 3rem; font-weight: 900; margin-bottom: 1rem; }
-        .hero p { font-size: 1.25rem; max-width: 800px; margin: 0 auto 2rem; color: #E2E8F0; }
-        .slogan { display: inline-block; background-color: var(--primary); color: var(--white); padding: 0.5rem 1.5rem; border-radius: 50px; font-weight: 700; margin-bottom: 1rem; }
 
-        section { max-width: 1200px; margin: 4rem auto; padding: 0 1.5rem; }
-        .section-title { font-size: 2rem; font-weight: 800; color: var(--secondary); margin-bottom: 2rem; border-left: 5px solid var(--primary); padding-left: 1rem; }
+        .hero-dashboard h1 { font-size: 2.5rem; font-weight: 900; margin-bottom: 0.8rem; }
+        .hero-dashboard p { font-size: 1.1rem; max-width: 800px; margin: 0 auto 1.5rem; color: #E2E8F0; }
+        .slogan { display: inline-block; background-color: var(--primary); color: var(--white); padding: 0.4rem 1.2rem; border-radius: 50px; font-weight: 700; font-size: 0.9rem; margin-bottom: 1rem; }
 
-        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+        .section-title { font-size: 1.8rem; font-weight: 800; color: var(--secondary); margin-bottom: 1.5rem; border-left: 5px solid var(--primary); padding-left: 1rem; }
+
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
         .info-card { background: var(--white); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
         .info-card h3 { color: var(--primary-dark); font-size: 0.9rem; text-transform: uppercase; margin-bottom: 0.5rem; }
         .info-card p { font-size: 1.2rem; font-weight: 700; color: var(--secondary); }
 
-        /* 클릭 가능한 카드 스타일 */
         .clickable-card { cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
         .clickable-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px rgba(0,0,0,0.1); border: 2px solid var(--primary); }
 
@@ -95,13 +157,20 @@
         .day-header { text-align: center; font-weight: 700; padding: 0.5rem; color: var(--text-muted); }
         .day-header.sun { color: #E11D48; }
         .day-header.sat { color: #2563EB; }
-        .day-cell { min-height: 90px; border: 1px solid #F1F5F9; border-radius: 6px; padding: 0.4rem; position: relative; background: rgba(255, 255, 255, 0.9); }
+        .day-cell { min-height: 90px; border: 1px solid #F1F5F9; border-radius: 6px; padding: 0.4rem; position: relative; }
         .day-cell .date { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.3rem; }
         .match-tag { font-size: 0.75rem; padding: 0.2rem 0.4rem; border-radius: 4px; margin-bottom: 0.2rem; color: var(--white); font-weight: 600; }
         .match-tag.home { background-color: var(--primary); }
         .match-tag.away { background-color: #64748B; }
         .match-tag.cup { background-color: #D97706; }
         .match-tag.done { background-color: #94A3B8; text-decoration: line-through; }
+
+        /* 일정표 배경 yamisup.webp 설정 */
+        #schedule-section {
+            background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), url('yamisup.webp') no-repeat center center / cover;
+            padding: 30px 20px;
+            border-radius: 16px;
+        }
 
         /* 모달 팝업 창 스타일 */
         .modal-overlay {
@@ -139,145 +208,152 @@
         .modal-info-val { color: var(--text-dark); font-weight: 700; }
         .modal-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.5; }
 
-        footer { background-color: var(--secondary); color: var(--text-muted); padding: 3rem 1.5rem; text-align: center; margin-top: 5rem; }
-        footer p { margin-bottom: 0.5rem; font-size: 0.9rem; }
-
-        /* 일정표 섹션 배경 사진 설정 (yamisup.webp 적용) */
-        #schedule {
-            background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('yamisup.png') no-repeat center center / cover;
-            padding: 40px 20px;
-            border-radius: 16px;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .hero h1 { font-size: 2rem; }
-            .calendar-grid { font-size: 0.8rem; }
-            .day-cell { min-height: 70px; }
+        @media (max-width: 900px) {
+            body { flex-direction: column; }
+            sidebar { width: 100%; height: auto; position: relative; }
+            main { margin-left: 0; padding: 1.5rem; }
+            .sidebar-menu { display: flex; overflow-x: auto; padding: 0.5rem; }
+            .sidebar-menu li a { border-left: none; border-bottom: 3px solid transparent; padding: 0.8rem 1rem; white-space: nowrap; }
+            .sidebar-menu li a:hover, .sidebar-menu li a.active { border-bottom-color: var(--primary); }
+            .sidebar-footer { display: none; }
         }
     </style>
-    
 </head>
 <body>
 
-    <header>
-        <div class="nav-container">
+    <!-- 좌측 사이드바 -->
+    <sidebar>
+        <div class="sidebar-header">
             <a href="#" class="logo">SOOP <span>수퍼스</span></a>
-            <ul class="nav-links">
-                <li><a href="#about">구단 소개</a></li>
-                <li><a href="#coach">코칭스태프</a></li>
-                <li><a href="#roster">선수단</a></li>
-                <li><a href="#schedule">시즌 일정</a></li>
-            </ul>
         </div>
-    </header>
-
-    <div class="hero">
-        <span class="slogan">BUILD Together, WIN Together</span>
-        <h1>전남광주 SOOP 수퍼스</h1>
-        <p>전남광주를 연고로 2026년 새롭게 출발하는 도드람 V-리그 막내 여자 프로배구단</p>
-    </div>
-
-    <section id="about">
-        <h2 class="section-title">구단 개요</h2>
-        <div class="info-grid">
-            <div class="info-card">
-                <h3>연고지</h3>
-                <p>전남광주통합특별시</p>
-            </div>
-            <div class="info-card">
-                <h3>홈구장</h3>
-                <p>SOOP 스타디움 (염주체육관)</p>
-            </div>
-            <div class="info-card">
-                <h3>초대 감독</h3>
-                <p>김세진 감독</p>
-            </div>
-            <div class="info-card">
-                <h3>주장</h3>
-                <p>한다혜 선수</p>
-            </div>
+        <ul class="sidebar-menu">
+            <li><a href="#" class="nav-tab active" onclick="switchTab(event, 'about-tab')">구단 소개</a></li>
+            <li><a href="#" class="nav-tab" onclick="switchTab(event, 'coach-tab')">코칭스태프</a></li>
+            <li><a href="#" class="nav-tab" onclick="switchTab(event, 'roster-tab')">선수단 명단</a></li>
+            <li><a href="#" class="nav-tab" onclick="switchTab(event, 'schedule-tab')">시즌 일정</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            <p>© 2026 SOOP SOOPers</p>
+            <p>전남광주 SOOP 수퍼스 안내</p>
         </div>
-    </section>
+    </sidebar>
 
-    <section id="coach">
-        <h2 class="section-title">코칭스태프</h2>
-        <div class="info-grid">
-            <!-- 감독 -->
-            <div class="info-card clickable-card" onclick="openProfile('감독', '김세진', 'tpwls.webp', '생년월일: 1974년 1월 30일\n경력: 전 삼성화재 블루팡스 감독, KBS N 스포츠 해설위원', '1974.01.30', '대한민국')">
-                <div class="player-img-container" style="height: 180px; border-radius: 8px; margin-bottom: 1rem;">
-                    <img src="tpwls.webp" alt="김세진 감독" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=김세진'">
+    <!-- 우측 메인 대시보드 영역 -->
+    <main>
+        <!-- 상단 히어로 배너 -->
+        <div class="hero-dashboard">
+            <span class="slogan">BUILD Together, WIN Together</span>
+            <h1>전남광주 SOOP 수퍼스</h1>
+            <p>전남광주를 연고로 2026년 새롭게 출발하는 도드람 V-리그 막내 여자 프로배구단</p>
+        </div>
+
+        <!-- 1. 구단 소개 탭 -->
+        <div id="about-tab" class="tab-content active">
+            <h2 class="section-title">구단 개요</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>연고지</h3>
+                    <p>전남광주통합특별시</p>
                 </div>
-                <h3>감독</h3>
-                <p>김세진</p>
-            </div>
-
-            <!-- 수석코치 -->
-            <div class="info-card clickable-card" onclick="openProfile('수석코치', '진순기', 'tnsrl.webp', '팀의 전술 완성도와 선수단 훈련을 총괄하는 베테랑 지도자', '1976.05.12', '대한민국')">
-                <div class="player-img-container" style="height: 180px; border-radius: 8px; margin-bottom: 1rem;">
-                    <img src="tnsrl.webp" alt="진순기 수석코치" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=진순기'">
+                <div class="info-card">
+                    <h3>홈구장</h3>
+                    <p>SOOP 스타디움 (염주체육관)</p>
                 </div>
-                <h3>수석코치</h3>
-                <p>진순기</p>
-            </div>
-
-            <!-- 코치 -->
-            <div class="info-card clickable-card" onclick="openProfile('코치', '김재훈', 'wogns.webp', '선수별 맞춤형 기량 발전 및 분석 담당', '1982.08.15', '대한민국')">
-                <div class="player-img-container" style="height: 180px; border-radius: 8px; margin-bottom: 1rem;">
-                    <img src="wogns.webp" alt="김재훈 코치" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=김재훈'">
+                <div class="info-card">
+                    <h3>초대 감독</h3>
+                    <p>김세진 감독</p>
                 </div>
-                <h3>코치</h3>
-                <p>김재훈</p>
-            </div>
-
-            <!-- 코치 -->
-            <div class="info-card clickable-card" onclick="openProfile('코치', '함형진', 'gudwls.webp', '수비 및 조직력 강화 코치', '1985.03.20', '대한민국')">
-                <div class="player-img-container" style="height: 180px; border-radius: 8px; margin-bottom: 1rem;">
-                    <img src="gudwls.webp" alt="함형진 코치" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=함형진'">
+                <div class="info-card">
+                    <h3>주장</h3>
+                    <p>한다혜 선수</p>
                 </div>
-                <h3>코치</h3>
-                <p>함형진</p>
-            </div>
-        </div>
-    </section>
-    
-    <section id="roster">
-        <h2 class="section-title">선수단 명단 (2026-27)</h2>
-        <div class="roster-filter">
-            <button class="filter-btn active" onclick="filterRoster('all')">전체</button>
-            <button class="filter-btn" onclick="filterRoster('OH')">아웃사이드 히터</button>
-            <button class="filter-btn" onclick="filterRoster('OP')">아포짓 스파이커</button>
-            <button class="filter-btn" onclick="filterRoster('MB')">미들 블로커</button>
-            <button class="filter-btn" onclick="filterRoster('S')">세터</button>
-            <button class="filter-btn" onclick="filterRoster('L')">리베로</button>
-        </div>
-        <div class="player-grid" id="playerGrid"></div>
-    </section>
-
-    <section id="schedule">
-        <h2 class="section-title">2026-27 시즌 경기 일정 & 결과</h2>
-        
-        <div class="match-results-box">
-            <h3>📌 최근 경기 결과</h3>
-            <div class="match-result-item">
-                <span>11.01 (원정) vs 흥국생명</span>
-                <span class="match-score">0 : 3 패 (세트스코어 20-25, 20-25, 22-25)</span>
-            </div>
-            <div class="match-result-item">
-                <span>11.05 (홈 개막전) vs 한국도로공사</span>
-                <span class="match-score">1 : 3 패 (세트스코어 19-25, 22-25, 25-17, 19-25)</span>
             </div>
         </div>
 
-        <div class="schedule-controls">
-            <div class="calendar-nav">
-                <button class="calendar-btn" onclick="changeMonth(-1)">&lt; 이전달</button>
-                <h3 id="currentMonthDisplay" style="font-size: 1.2rem; font-weight: 700;">2026년 11월</h3>
-                <button class="calendar-btn" onclick="changeMonth(1)">다음달 &gt;</button>
+        <!-- 2. 코칭스태프 탭 -->
+        <div id="coach-tab" class="tab-content">
+            <h2 class="section-title">코칭스태프</h2>
+            <div class="info-grid">
+                <!-- 감독 -->
+                <div class="info-card clickable-card" onclick="openProfile('감독', '김세진', 'tpwls.webp', '생년월일: 1974년 1월 30일\n경력: 전 삼성화재 블루팡스 감독, KBS N 스포츠 해설위원', '1974.01.30', '대한민국')">
+                    <div class="player-img-container" style="height: 180px; border-radius: 8px; margin-bottom: 1rem;">
+                        <img src="tpwls.webp" alt="김세진 감독" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=김세진'">
+                    </div>
+                    <h3>감독</h3>
+                    <p>김세진</p>
+                </div>
+
+                <!-- 수석코치 -->
+                <div class="info-card clickable-card" onclick="openProfile('수석코치', '진순기', 'tnsrl.webp', '팀의 전술 완성도와 선수단 훈련을 총괄하는 베테랑 지도자', '1976.05.12', '대한민국')">
+                    <div class="player-img-container" style="height: 180px; border-radius: 8px; margin-bottom: 1rem;">
+                        <img src="tnsrl.webp" alt="진순기 수석코치" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=진순기'">
+                    </div>
+                    <h3>수석코치</h3>
+                    <p>진순기</p>
+                </div>
+
+                <!-- 코치 -->
+                <div class="info-card clickable-card" onclick="openProfile('코치', '김재훈', 'wogns.webp', '선수별 맞춤형 기량 발전 및 분석 담당', '1982.08.15', '대한민국')">
+                    <div class="player-img-container" style="height: 180px; border-radius: 8px; margin-bottom: 1rem;">
+                        <img src="wogns.webp" alt="김재훈 코치" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=김재훈'">
+                    </div>
+                    <h3>코치</h3>
+                    <p>김재훈</p>
+                </div>
+
+                <!-- 코치 -->
+                <div class="info-card clickable-card" onclick="openProfile('코치', '함형진', 'gudwls.webp', '수비 및 조직력 강화 코치', '1985.03.20', '대한민국')">
+                    <div class="player-img-container" style="height: 180px; border-radius: 8px; margin-bottom: 1rem;">
+                        <img src="gudwls.webp" alt="함형진 코치" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=함형진'">
+                    </div>
+                    <h3>코치</h3>
+                    <p>함형진</p>
+                </div>
             </div>
         </div>
-        <div class="calendar-grid" id="calendarGrid"></div>
-    </section>
+
+        <!-- 3. 선수단 명단 탭 -->
+        <div id="roster-tab" class="tab-content">
+            <h2 class="section-title">선수단 명단 (2026-27)</h2>
+            <div class="roster-filter">
+                <button class="filter-btn active" onclick="filterRoster('all')">전체</button>
+                <button class="filter-btn" onclick="filterRoster('OH')">아웃사이드 히터</button>
+                <button class="filter-btn" onclick="filterRoster('OP')">아포짓 스파이커</button>
+                <button class="filter-btn" onclick="filterRoster('MB')">미들 블로커</button>
+                <button class="filter-btn" onclick="filterRoster('S')">세터</button>
+                <button class="filter-btn" onclick="filterRoster('L')">리베로</button>
+            </div>
+            <div class="player-grid" id="playerGrid"></div>
+        </div>
+
+        <!-- 4. 시즌 일정 탭 -->
+        <div id="schedule-tab" class="tab-content">
+            <div id="schedule-section">
+                <h2 class="section-title">2026-27 시즌 경기 일정 & 결과</h2>
+                
+                <div class="match-results-box">
+                    <h3>📌 최근 경기 결과</h3>
+                    <div class="match-result-item">
+                        <span>11.01 (원정) vs 흥국생명</span>
+                        <span class="match-score">0 : 3 패 (세트스코어 20-25, 20-25, 22-25)</span>
+                    </div>
+                    <div class="match-result-item">
+                        <span>11.05 (홈 개막전) vs 한국도로공사</span>
+                        <span class="match-score">1 : 3 패 (세트스코어 19-25, 22-25, 25-17, 19-25)</span>
+                    </div>
+                </div>
+
+                <div class="schedule-controls">
+                    <div class="calendar-nav">
+                        <button class="calendar-btn" onclick="changeMonth(-1)">&lt; 이전달</button>
+                        <h3 id="currentMonthDisplay" style="font-size: 1.2rem; font-weight: 700;">2026년 11월</h3>
+                        <button class="calendar-btn" onclick="changeMonth(1)">다음달 &gt;</button>
+                    </div>
+                </div>
+                <div class="calendar-grid" id="calendarGrid"></div>
+            </div>
+        </div>
+    </main>
 
     <!-- 선수/코칭스태프 상세 정보 모달 팝업 -->
     <div class="modal-overlay" id="profileModal" onclick="closeModal(event)">
@@ -306,12 +382,21 @@
         </div>
     </div>
 
-    <footer>
-        <p>© 2026 SOOP SOOPers Volleyball Team. All rights reserved.</p>
-        <p>전남광주 SOOP 수퍼스 비공식 소개 및 경기 일정 안내 페이지입니다.</p>
-    </footer>
-
     <script>
+        // 사이드바 메뉴 클릭 시 탭 전환 함수
+        function switchTab(event, tabId) {
+            event.preventDefault();
+            
+            // 모든 탭 콘텐츠 숨기기
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            // 모든 메뉴 버튼 비활성화
+            document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
+
+            // 선택한 탭 및 메뉴 활성화
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
         const players = [
             { name: "한다혜", pos: "L", type: "L", captain: true, birth: "1995.02.24", height: "177cm", desc: "팀의 든든한 주장 겸 주전 리베로. 뛰어난 수비 집중력과 리시브 안정감을 자랑합니다.", img: "ekgP.webp" },
             { name: "고예림", pos: "OH", type: "OH", birth: "1994.06.12", height: "177cm", desc: "공수 균형이 잡힌 베테랑 아웃사이드 히터. 알토란같은 득점력과 허를 찌르는 공격이 장점입니다.", img: "dPfla.webp" },

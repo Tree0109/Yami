@@ -19,7 +19,17 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Noto Sans KR', sans-serif; }
-        body { background-color: var(--bg-light); color: var(--text-dark); display: flex; min-height: 100vh; overflow-x: hidden; }
+        
+        /* body 배경에 background.png 적용 */
+        body { 
+            background: url('background.png') no-repeat center center fixed;
+            background-size: cover;
+            background-color: var(--bg-light); /* 이미지 로드 전 또는 여백 대비용 기본 배경색 */
+            color: var(--text-dark); 
+            display: flex; 
+            min-height: 100vh; 
+            overflow-x: hidden; 
+        }
 
         /* 좌측 사이드바 스타일 */
         sidebar {
@@ -119,7 +129,7 @@
         .section-title { font-size: 1.8rem; font-weight: 800; color: var(--secondary); margin-bottom: 1.5rem; border-left: 5px solid var(--primary); padding-left: 1rem; }
 
         .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
-        .info-card { background: var(--white); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .info-card { background: rgba(255, 255, 255, 0.95); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
         .info-card h3 { color: var(--primary-dark); font-size: 0.9rem; text-transform: uppercase; margin-bottom: 0.5rem; }
         .info-card p { font-size: 1.2rem; font-weight: 700; color: var(--secondary); }
 
@@ -127,18 +137,17 @@
         .clickable-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px rgba(0,0,0,0.1); border: 2px solid var(--primary); }
 
         .roster-filter { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
-        .filter-btn { padding: 0.5rem 1.2rem; border: none; background-color: var(--white); color: var(--text-muted); border-radius: 20px; font-weight: 600; cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .filter-btn { padding: 0.5rem 1.2rem; border: none; background-color: rgba(255, 255, 255, 0.95); color: var(--text-muted); border-radius: 20px; font-weight: 600; cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .filter-btn.active, .filter-btn:hover { background-color: var(--primary); color: var(--white); }
 
         .player-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; }
-        .player-card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); position: relative; }
+        .player-card { background: rgba(255, 255, 255, 0.95); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); position: relative; }
         .player-badge { position: absolute; top: 12px; right: 12px; background: var(--secondary); color: var(--white); padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.8rem; font-weight: 700; z-index: 2; }
         .player-badge.captain { background: var(--accent); color: var(--secondary); }
         
-        /* 코칭스태프 및 선수 프로필 사진 박스 비율 수정 */
         .player-img-container { 
             width: 100%; 
-            height: 260px; /* 높이를 260px로 확장하여 얼굴이 잘리지 않도록 변경 */
+            height: 260px; 
             background-color: #F1F5F9; 
             display: flex; 
             align-items: center; 
@@ -150,8 +159,8 @@
         .player-img-container img { 
             width: 100%; 
             height: 100%; 
-            object-fit: contain; /* 비율을 유지하면서 전체 모습이 다 보이도록 변경 */
-            object-position: top center; /* 정수리 영역부터 기준으로 정렬 */
+            object-fit: contain; 
+            object-position: top center; 
         }
         
         .player-info { padding: 1.2rem; text-align: center; }
@@ -159,7 +168,7 @@
         .player-name { font-size: 1.3rem; font-weight: 800; margin: 0.2rem 0; color: var(--secondary); }
         .profile-hint { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.4rem; }
 
-        .match-results-box { background: var(--white); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 2rem; border-left: 5px solid var(--primary); }
+        .match-results-box { background: rgba(255, 255, 255, 0.95); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 2rem; border-left: 5px solid var(--primary); }
         .match-results-box h3 { font-size: 1.1rem; color: var(--secondary); margin-bottom: 0.8rem; font-weight: 700; }
         .match-result-item { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0; border-bottom: 1px solid #F1F5F9; font-size: 0.95rem; }
         .match-result-item:last-child { border-bottom: none; }
@@ -167,13 +176,13 @@
 
         .schedule-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
         .calendar-nav { display: flex; align-items: center; gap: 1rem; }
-        .calendar-btn { background: var(--white); border: 1px solid #CBD5E1; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-weight: 600; }
+        .calendar-btn { background: rgba(255, 255, 255, 0.95); border: 1px solid #CBD5E1; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-weight: 600; }
 
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; background: var(--white); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; background: rgba(255, 255, 255, 0.95); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
         .day-header { text-align: center; font-weight: 700; padding: 0.5rem; color: var(--text-muted); }
         .day-header.sun { color: #E11D48; }
         .day-header.sat { color: #2563EB; }
-        .day-cell { min-height: 90px; border: 1px solid #F1F5F9; border-radius: 6px; padding: 0.4rem; position: relative; }
+        .day-cell { min-height: 90px; border: 1px solid #F1F5F9; border-radius: 6px; padding: 0.4rem; position: relative; background: #FFFFFF; }
         .day-cell .date { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.3rem; }
         .match-tag { font-size: 0.75rem; padding: 0.2rem 0.4rem; border-radius: 4px; margin-bottom: 0.2rem; color: var(--white); font-weight: 600; }
         .match-tag.home { background-color: var(--primary); }
@@ -181,9 +190,9 @@
         .match-tag.cup { background-color: #D97706; }
         .match-tag.done { background-color: #94A3B8; text-decoration: line-through; }
 
-        /* 일정표 배경 yamisup.png 설정 */
+        /* 일정표 섹션 배경 yamisup.webp 설정 */
         #schedule-section {
-            background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), url('yamisup.png') no-repeat center center / cover;
+            background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), url('yamisup.webp') no-repeat center center / cover;
             padding: 30px 20px;
             border-radius: 16px;
         }

@@ -422,7 +422,7 @@
             transition: all 0.2s ease;
         }
 
-        .btn-rotate:hover { background: #00C853; transform: scale(1.03); }
+        .btn-rotate:hover { background: #00C853; transform: scale(1.05); }
 
         .volleyball-court {
             background: #111C38;
@@ -474,8 +474,8 @@
         }
 
         .player-circle {
-            width: 44px;
-            height: 44px;
+            width: 46px;
+            height: 46px;
             border-radius: 50%;
             background: #1E293B;
             border: 2px solid #FFFFFF;
@@ -486,6 +486,11 @@
             font-size: 0.95rem;
             margin-bottom: 0.4rem;
             color: #FFF;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s;
+        }
+
+        .player-circle.rotate-anim {
+            transform: rotate(360deg) scale(1.15);
         }
 
         .player-circle.libero { background: #FFD700; color: #000; border-color: #FFD700; }
@@ -849,7 +854,7 @@
                         <div class="volleyball-court">
                             <div class="court-net-label">상대 코트 ▲ 네트</div>
                             
-                            <!-- 전위 영역 (4, 3, 2번 - 절대 리베로가 올 수 없음) -->
+                            <!-- 전위 영역 (4, 3, 2번) -->
                             <div class="court-front-zone">
                                 <div class="court-position-box">
                                     <div class="player-circle" id="pos4-circle">OP</div>
@@ -867,25 +872,25 @@
 
                             <div class="court-attack-line"></div>
 
-                            <!-- 후위 영역 (5, 6, 1번 - 미들블로커가 후위로 오면 리베로와 교대) -->
+                            <!-- 후위 영역 (5, 6, 1번) -->
                             <div class="court-back-zone">
                                 <div class="court-position-box">
                                     <div class="player-circle" id="pos5-circle">OH</div>
                                     <div class="pos-num-label">5번</div>
                                 </div>
                                 <div class="court-position-box">
-                                    <div class="player-circle" id="pos6-circle">L</div>
+                                    <div class="player-circle libero" id="pos6-circle">L</div>
                                     <div class="pos-num-label">6번</div>
                                 </div>
                                 <div class="court-position-box">
-                                    <div class="player-circle" id="pos1-circle">S</div>
+                                    <div class="player-circle setter" id="pos1-circle">S</div>
                                     <div class="pos-num-label">1번 · 서브</div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="court-footer-info" id="courtInfoText">
-                            지금 서브: <strong style="color:#00E676;" id="serverPosName">세터</strong>. 미들블로커가 후위로 내려올 때만 노란 <strong style="color:#FFD700;">L(리베로)</strong>과 교대하며, 전위로 올라갈 때는 다시 미들블로커(MB)로 교체되어 올라갑니다.
+                            지금 서브: <strong style="color:#00E676;" id="serverPosName">세터</strong>. 서브권을 되찾을 때마다 2번 → 1번 → 6번 → 5번 → 4번 → 3번 순서로 시계 방향으로 돌아요. 노란 <strong style="color:#FFD700;">L</strong>은 후위로 내려온 미들블로커 대신 들어간 리베로예요.
                         </div>
                     </div>
                 </div>
@@ -1116,54 +1121,72 @@
             renderCalendar();
         }
 
-        /* --- 배구 코트 로테이션 기능 (리베로 전위 진입 방지 로직 적용) --- */
-        let courtPositions = [
-            { num: 1, code: "S", name: "세터", special: "setter" },
-            { num: 2, code: "OH", name: "아웃사이드 히터", special: "" },
-            { num: 3, code: "MB", name: "미들 블로커", special: "" },
-            { num: 4, code: "OP", name: "아포짓 스파이커", special: "" },
-            { num: 5, code: "OH", name: "아웃사이드 히터", special: "" },
-            { num: 6, code: "L", name: "리베로", special: "libero" }
+        /* --- 배구 코트 시계방향 로테이션 및 애니메이션 효과 --- */
+        // 기본 6명 라인업 (시계방향순: 1번 -> 6번 -> 5번 -> 4번 -> 3번 -> 2번)
+        let lineup = [
+            { code: "S", name: "세터", special: "setter" },       // index 0 -> 1번 서브
+            { code: "L", name: "리베로", special: "libero" },     // index 1 -> 6번 (후위 MB 대신 L)
+            { code: "OH", name: "아웃사이드 히터", special: "" }, // index 2 -> 5번
+            { code: "OP", name: "아포짓 스파이커", special: "" }, // index 3 -> 4번
+            { code: "MB", name: "미들 블로커", special: "" },     // index 4 -> 3번
+            { code: "OH", name: "아웃사이드 히터", special: "" }  // index 5 -> 2번
         ];
 
         function updateCourtDisplay() {
-            courtPositions.forEach(p => {
-                const circle = document.getElementById(`pos${p.num}-circle`);
-                circle.innerText = p.code;
-                circle.className = `player-circle ${p.special}`;
-            });
+            // 자리에 지정될 라인업 배치
+            const positionMapping = {
+                1: lineup[0], // 1번
+                6: lineup[1], // 6번
+                5: lineup[2], // 5번
+                4: lineup[3], // 4번
+                3: lineup[4], // 3번
+                2: lineup[5]  // 2번
+            };
 
-            const server = courtPositions.find(p => p.num === 1);
-            document.getElementById('serverPosName').innerText = server.name;
+            for (let pos = 1; pos <= 6; pos++) {
+                const circle = document.getElementById(`pos${pos}-circle`);
+                const data = positionMapping[pos];
+                
+                circle.innerText = data.code;
+                circle.className = `player-circle ${data.special}`;
+            }
+
+            document.getElementById('serverPosName').innerText = positionMapping[1].name;
         }
 
         function rotateCourt() {
-            const last = courtPositions.pop();
-            courtPositions.unshift(last);
+            // 1. 회전 애니메이션 클래스 추가
+            const circles = document.querySelectorAll('.player-circle');
+            circles.forEach(c => c.classList.add('rotate-anim'));
 
-            // 전위 자리(4, 3, 2번)에 'L(리베로)'가 들어왔다면 'MB(미들블로커)'로 변경
-            courtPositions.forEach(p => {
-                if ([4, 3, 2].includes(p.num)) {
-                    if (p.code === "L") {
-                        p.code = "MB";
-                        p.name = "미들 블로커";
-                        p.special = "";
-                    }
-                }
-            });
+            // 2. 배구 시계 방향 이동 로직: 2번 -> 1번, 1번 -> 6번, 6번 -> 5번 ...
+            // 라인업 순서에서 맨 뒤(2번 위치)의 선수가 맨 앞(1번 서브 위치)으로 오게 됨
+            const movedPlayer = lineup.pop();
+            lineup.unshift(movedPlayer);
 
-            // 후위(5, 6, 1번) 자리 중 미들블로커(MB) 역할을 맡는 위치를 리베로(L)로 교대
-            let backMb = courtPositions.find(p => [5, 6, 1].includes(p.num) && p.code === "MB");
-            if (backMb) {
-                let existingLibero = courtPositions.find(p => p.code === "L");
-                if (!existingLibero) {
-                    backMb.code = "L";
-                    backMb.name = "리베로";
-                    backMb.special = "libero";
+            // 3. 리베로(L) 전위 진입 방지 규칙 적용
+            // 라인업 배치상 전위 위치는 index 3(4번), 4(3번), 5(2번)
+            for (let i = 3; i <= 5; i++) {
+                if (lineup[i].code === "L") {
+                    lineup[i] = { code: "MB", name: "미들 블로커", special: "" };
                 }
             }
 
+            // 후위 위치(index 0, 1, 2 = 1, 6, 5번 자리) 중 MB가 들어오면 자동으로 리베로(L)로 교대
+            for (let i = 0; i <= 2; i++) {
+                if (lineup[i].code === "MB") {
+                    lineup[i] = { code: "L", name: "리베로", special: "libero" };
+                    break;
+                }
+            }
+
+            // 화면에 렌더링
             updateCourtDisplay();
+
+            // 4. 애니메이션 효과 리셋
+            setTimeout(() => {
+                circles.forEach(c => c.classList.remove('rotate-anim'));
+            }, 400);
         }
 
         renderRoster();

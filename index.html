@@ -642,7 +642,7 @@
                     <div class="timeline-item">
                         <div class="timeline-date">2026. 7. 1</div>
                         <div class="timeline-event-title">외국인 선수 구성 완료</div>
-                        <div class="timeline-event-desc">외국인 선수 오드리아나 피츠모리스(198cm)와 아시아쿼터 이즈 쉬에(192cm)를 영입하며 높이를 보강했습니다.</div>
+                        <div class="timeline-event-desc">외국인 선수 오드리아나 피츠모리스(198cm)와 아시아쿼터 이즈 쉬ه(192cm)를 영입하며 높이를 보강했습니다.</div>
                     </div>
 
                     <div class="timeline-item">
@@ -784,7 +784,7 @@
                     <div class="rules-summary-card">
                         <div class="rules-card-big">6 : 6</div>
                         <div class="rules-card-label">코트 위 선수</div>
-                        <div class="rules-card-desc">한 팀 6명이 네트를 사이에 두고 맞서요. 리베로는 후위 수비 시 미들블로커와 자유롭게 교체해요.</div>
+                        <div class="rules-card-desc">한 팀 6명이 네트를 사이에 두고 맞서요. 리베로는 후위 수비 시 특정 미들블로커와 교대해요.</div>
                     </div>
                     <div class="rules-summary-card">
                         <div class="rules-card-big">25<span>점</span></div>
@@ -837,7 +837,7 @@
                             <li>랠리 포인트제: 서브권과 상관없이 랠리를 이긴 팀이 1점을 가져가요.</li>
                             <li>점수를 낸 팀이 다음 서브를 넣어요. 상대 서브를 받아 점수를 내면 서브권을 가져오면서 시계 방향으로 한 칸씩 자리를 돌아요(로테이션).</li>
                             <li>전위(네트 앞 2·3·4번 자리) 3명만 블로킹과 네트 위 공격을 할 수 있어요. 후위 선수는 어택라인 뒤에서 뛰어올라야 공격할 수 있어요(백어택).</li>
-                            <li><strong>리베로 규칙:</strong> 리베로는 서브를 넣거나 전위(2·3·4번)에 설 수 없습니다. 1번 서브 차례나 전위로 올라갈 때는 원래 미들블로커(MB)로 교대됩니다.</li>
+                            <li><strong>리베로 교대 규칙:</strong> 리베로는 서브를 넣거나 전위로 갈 수 없습니다. 짝을 이룬 미들블로커(MB)가 후위로 내려갈 때만 교대해 들어오고, 전위로 올라가거나 서브(1번)를 넣을 차례가 되면 다시 그 미들블로커와 교대되어 나갑니다.</li>
                         </ul>
                     </div>
 
@@ -879,7 +879,7 @@
                                     <div class="pos-num-label">5번</div>
                                 </div>
                                 <div class="court-position-box">
-                                    <div class="player-circle libero" id="pos6-circle">L</div>
+                                    <div class="player-circle" id="pos6-circle">MB</div>
                                     <div class="pos-num-label">6번</div>
                                 </div>
                                 <div class="court-position-box">
@@ -890,7 +890,7 @@
                         </div>
 
                         <div class="court-footer-info" id="courtInfoText">
-                            지금 서브: <strong style="color:#00E676;" id="serverPosName">세터</strong>. 서브권을 되찾을 때마다 2번 → 1번 → 6번 → 5번 → 4번 → 3번 순서로 시계 방향으로 돌아요. 노란 <strong style="color:#FFD700;">L</strong>은 후위(5,6번) 수비 시 미들블로커 대신 들어간 리베로예요.
+                            지금 서브: <strong style="color:#00E676;" id="serverPosName">세터</strong>. 서브권을 되찾을 때마다 2번 → 1번 → 6번 → 5번 → 4번 → 3번 순서로 시계 방향으로 돌아요. 미들블로커가 후위(6번, 5번 등)로 내려갈 때만 리베로로 교대됩니다.
                         </div>
                     </div>
                 </div>
@@ -1121,19 +1121,18 @@
             renderCalendar();
         }
 
-        /* --- 배구 코트 로테이션 및 서브/리베로 규칙 정밀 구현 --- */
-        // 기본 6인 라인업 (1번, 6번, 5번, 4번, 3번, 2번 자리에 대응)
+        /* --- 배구 코트 로테이션 및 전용 미들블로커-리베로 교대 로직 --- */
+        // 각 선수 객체에 고유 식별자와 리베로 교대 상태(isLiberoSwapped) 부여
         let lineup = [
-            { code: "S", name: "세터", special: "setter" },       // index 0 -> 1번 (서브)
-            { code: "L", name: "리베로", special: "libero" },     // index 1 -> 6번 (후위 수비 중인 MB 대신 L)
-            { code: "OH", name: "아웃사이드 히터", special: "" }, // index 2 -> 5번
-            { code: "OP", name: "아포짓 스파이커", special: "" }, // index 3 -> 4번
-            { code: "MB", name: "미들 블로커", special: "" },     // index 4 -> 3번
-            { code: "OH", name: "아웃사이드 히터", special: "" }  // index 5 -> 2번
+            { id: "S1", code: "S", name: "세터", special: "setter", isLiberoSwapped: false },       // index 0 -> 1번 (서브)
+            { id: "MB1", code: "MB", name: "미들 블로커", special: "", isLiberoSwapped: true },     // index 1 -> 6번 (초기 리베로와 교대된 상태)
+            { id: "OH1", code: "OH", name: "아웃사이드 히터", special: "", isLiberoSwapped: false }, // index 2 -> 5번
+            { id: "OP1", code: "OP", name: "아포짓 스파이커", special: "", isLiberoSwapped: false }, // index 3 -> 4번
+            { id: "MB2", code: "MB", name: "미들 블로커", special: "", isLiberoSwapped: false },     // index 4 -> 3번
+            { id: "OH2", code: "OH", name: "아웃사이드 히터", special: "", isLiberoSwapped: false }  // index 5 -> 2번
         ];
 
         function updateCourtDisplay() {
-            // 위치 매핑 (1번 서브, 6번, 5번, 4번, 3번, 2번)
             const positionMapping = {
                 1: lineup[0],
                 6: lineup[1],
@@ -1147,44 +1146,48 @@
                 const circle = document.getElementById(`pos${pos}-circle`);
                 const data = positionMapping[pos];
                 
-                circle.innerText = data.code;
-                circle.className = `player-circle ${data.special}`;
+                // 후위(5, 6, 1번)에 와있고 지정된 MB라면 리베로(L)로 표시
+                if ([5, 6, 1].includes(pos) && data.code === "MB" && data.isLiberoSwapped) {
+                    circle.innerText = "L";
+                    circle.className = "player-circle libero";
+                } else {
+                    circle.innerText = data.code;
+                    circle.className = `player-circle ${data.special}`;
+                }
             }
 
-            document.getElementById('serverPosName').innerText = positionMapping[1].name;
+            // 1번 서브 자리 표시 (만약 리베로 교대 상태여도 서브는 원래 MB가 넣으므로 이름 처리)
+            const server = positionMapping[1];
+            document.getElementById('serverPosName').innerText = server.name;
         }
 
         function rotateCourt() {
-            // 1. 회전 애니메이션 실행
+            // 1. 애니메이션 효과 추가
             const circles = document.querySelectorAll('.player-circle');
             circles.forEach(c => c.classList.add('rotate-anim'));
 
-            // 2. 시계 방향 회전 (2번 -> 1번 서브 자리로 이동)
+            // 2. 시계 방향 회전 (2번 -> 1번 -> 6번 -> 5번 -> 4번 -> 3번)
             const movedPlayer = lineup.pop();
             lineup.unshift(movedPlayer);
 
-            // 3. 리베로 규칙 적용
-            // (1) 1번 서브 자리(index 0)에 리베로(L)가 오면 서브를 못 넣으므로 MB로 복귀
-            if (lineup[0].code === "L") {
-                lineup[0] = { code: "MB", name: "미들 블로커", special: "" };
-            }
-
-            // (2) 전위 자치(4, 3, 2번 -> index 3, 4, 5)에 리베로(L)가 오면 MB로 복귀
+            // 3. 실제 배구 교대 규칙 적용:
+            // - 전위(4, 3, 2번 -> index 3, 4, 5)로 올라오면 리베로 상태 해제 (원래 MB로 복귀)
             for (let i = 3; i <= 5; i++) {
-                if (lineup[i].code === "L") {
-                    lineup[i] = { code: "MB", name: "미들 블로커", special: "" };
-                }
+                lineup[i].isLiberoSwapped = false;
             }
 
-            // (3) 후위 자리 중 서브를 넣고 지나간 6번이나 5번 자리(index 1, 2)에 MB가 위치하면 리베로(L)로 교대
+            // - 후위(5, 6, 1번 중 1번 서브 자리를 제외한 5, 6번 -> index 1, 2)로 내려오면 특정 MB가 리베로와 교대
+            // (여기서는 편의상 MB1 또는 MB2가 후위로 올 때 리베로와 교대하도록 설정)
             for (let i = 1; i <= 2; i++) {
                 if (lineup[i].code === "MB") {
-                    lineup[i] = { code: "L", name: "리베로", special: "libero" };
-                    break;
+                    lineup[i].isLiberoSwapped = true;
                 }
             }
 
-            // 화면에 업데이트
+            // - 1번 서브 자리(index 0)로 오면 절대 리베로일 수 없으므로 상태 해제
+            lineup[0].isLiberoSwapped = false;
+
+            // 화면 반영
             updateCourtDisplay();
 
             // 4. 애니메이션 클래스 제거

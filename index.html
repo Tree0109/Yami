@@ -110,7 +110,6 @@
         }
 
         .hero-dashboard {
-        /* 기존 어색했던 배경을 새로 만든 배너 이미지로 교체 */
             background: linear-gradient(135deg, rgba(10,25,47,0.4), rgba(0,86,179,0.3)), url('top2.png') center/cover no-repeat;
             color: var(--white);
             padding: 4rem 2rem;
@@ -131,7 +130,7 @@
         .info-card h3 { color: var(--primary-dark); font-size: 0.9rem; text-transform: uppercase; margin-bottom: 0.5rem; }
         .info-card p { font-size: 1.2rem; font-weight: 700; color: var(--secondary); }
 
-        /* 타임라인 스타일 (투명도 조절 및 블러 효과 적용) */
+        /* 타임라인 스타일 */
         .timeline-container {
             background: rgba(10, 25, 47, 0.7);
             border: 1px solid rgba(255, 255, 255, 0.15);
@@ -247,6 +246,264 @@
             border-radius: 16px;
         }
 
+        /* --- 배구 규칙 (Volleyball 101) 스타일 --- */
+        .rules-wrapper {
+            background: rgba(10, 25, 47, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 2.5rem;
+            color: #FFFFFF;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .rules-header-tag {
+            color: #00E676;
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .rules-main-title {
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+        }
+
+        .rules-sub-title {
+            color: #94A3B8;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .rules-summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .rules-summary-card {
+            background: rgba(15, 30, 58, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 1.5rem;
+            transition: transform 0.2s ease;
+        }
+
+        .rules-summary-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .rules-card-big {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #60A5FA;
+            margin-bottom: 0.2rem;
+            display: flex;
+            align-items: baseline;
+            gap: 0.3rem;
+        }
+
+        .rules-card-big span { font-size: 1.1rem; color: #FFFFFF; }
+        .rules-card-label { font-weight: 800; font-size: 1.1rem; margin-bottom: 0.8rem; color: #FFFFFF; }
+        .rules-card-desc { font-size: 0.85rem; color: #CBD5E1; line-height: 1.5; }
+
+        .rules-detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .rules-section-box {
+            background: rgba(15, 30, 58, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .rules-box-title-tag {
+            font-size: 0.75rem;
+            color: #60A5FA;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
+        }
+
+        .rules-box-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        .rally-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .rally-step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .step-num {
+            background: #2563EB;
+            color: #FFF;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .step-content {
+            font-size: 0.95rem;
+            color: #E2E8F0;
+            line-height: 1.5;
+        }
+
+        .step-content strong { color: #60A5FA; }
+
+        .rules-bullet-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.2rem;
+        }
+
+        .rules-bullet-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            font-size: 0.9rem;
+            color: #CBD5E1;
+            line-height: 1.5;
+        }
+
+        .rules-bullet-list li::before {
+            content: '🏐';
+            position: absolute;
+            left: 0;
+            top: 1px;
+            font-size: 0.85rem;
+        }
+
+        /* 배구 코트 회전 그래픽 */
+        .court-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-rotate {
+            background: #00E676;
+            color: #0A192F;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-rotate:hover { background: #00C853; transform: scale(1.03); }
+
+        .volleyball-court {
+            background: #111C38;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .court-net-label {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #94A3B8;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .court-front-zone, .court-back-zone {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .court-attack-line {
+            border-top: 2px dashed rgba(255, 255, 255, 0.3);
+            margin: 1.2rem 0;
+            position: relative;
+        }
+
+        .court-attack-line::after {
+            content: '어택라인 3m';
+            position: absolute;
+            right: 0;
+            top: -10px;
+            background: #111C38;
+            padding: 0 0.4rem;
+            font-size: 0.7rem;
+            color: #64748B;
+        }
+
+        .court-position-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 0.8rem 0.5rem;
+        }
+
+        .player-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #1E293B;
+            border: 2px solid #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 0.95rem;
+            margin-bottom: 0.4rem;
+            color: #FFF;
+        }
+
+        .player-circle.libero { background: #FFD700; color: #000; border-color: #FFD700; }
+        .player-circle.setter { background: #00E676; color: #0A192F; border-color: #00E676; }
+
+        .pos-num-label { font-size: 0.75rem; color: #94A3B8; font-weight: 700; }
+
+        .court-footer-info {
+            margin-top: 1.2rem;
+            font-size: 0.85rem;
+            color: #CBD5E1;
+            line-height: 1.5;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        /* 모달 팝업 */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.6); display: none;
@@ -290,6 +547,7 @@
             .sidebar-menu li a { border-left: none; border-bottom: 3px solid transparent; padding: 0.8rem 1rem; white-space: nowrap; }
             .sidebar-menu li a:hover, .sidebar-menu li a.active { border-bottom-color: var(--primary); }
             .sidebar-footer { display: none; }
+            .rules-detail-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -305,6 +563,7 @@
             <li><a href="#" class="nav-tab" onclick="switchTab(event, 'coach-tab')">코칭스태프</a></li>
             <li><a href="#" class="nav-tab" onclick="switchTab(event, 'roster-tab')">선수단 명단</a></li>
             <li><a href="#" class="nav-tab" onclick="switchTab(event, 'schedule-tab')">시즌 일정</a></li>
+            <li><a href="#" class="nav-tab" onclick="switchTab(event, 'rules-tab')">배구 규칙</a></li>
         </ul>
         <div class="sidebar-footer">
             <p>© 2026 SOOP SOOPers</p>
@@ -505,6 +764,130 @@
                     </div>
                 </div>
                 <div class="calendar-grid" id="calendarGrid"></div>
+            </div>
+        </div>
+
+        <!-- 5. 배구 규칙 탭 (Volleyball 101) -->
+        <div id="rules-tab" class="tab-content">
+            <div class="rules-wrapper">
+                <div class="rules-header-tag">VOLLEYBALL 101</div>
+                <h1 class="rules-main-title">처음 보는 배구, 이것만 알면 돼요</h1>
+                <p class="rules-sub-title">직관 가기 전에 3분만! 점수 내는 법부터 자주 나오는 반칙, 중계에서 들리는 용어까지 정리했어요.</p>
+
+                <!-- 4개 요약 카드 -->
+                <div class="rules-summary-grid">
+                    <div class="rules-summary-card">
+                        <div class="rules-card-big">6 : 6</div>
+                        <div class="rules-card-label">코트 위 선수</div>
+                        <div class="rules-card-desc">한 팀 6명이 네트를 사이에 두고 맞서요. 리베로는 후위 선수와 횟수 제한 없이 교체해요.</div>
+                    </div>
+                    <div class="rules-summary-card">
+                        <div class="rules-card-big">25<span>점</span></div>
+                        <div class="rules-card-label">한 세트</div>
+                        <div class="rules-card-desc">먼저 25점을 내면 세트를 가져가요. 24 : 24가 되면 2점 차가 날 때까지 이어지는 듀스!</div>
+                    </div>
+                    <div class="rules-summary-card">
+                        <div class="rules-card-big">3<span>세트</span></div>
+                        <div class="rules-card-label">먼저 이기면 승리</div>
+                        <div class="rules-card-desc">최대 5세트 중 3세트를 먼저 따면 경기 끝. 2 : 2가 되면 마지막 5세트는 15점예요.</div>
+                    </div>
+                    <div class="rules-summary-card">
+                        <div class="rules-card-big">3<span>번</span></div>
+                        <div class="rules-card-label">넘기기 전 터치</div>
+                        <div class="rules-card-desc">받고(리시브), 올리고(토스), 때리기(공격)까지 세 번 안에 넘겨야 해요. 블로킹 터치는 세지 않아요.</div>
+                    </div>
+                </div>
+
+                <!-- 상세 설명 및 로테이션 판 -->
+                <div class="rules-detail-grid">
+                    <!-- 좌측: 랠리 진행 방식 -->
+                    <div class="rules-section-box">
+                        <div class="rules-box-title-tag">RALLY</div>
+                        <h2 class="rules-box-title">한 점은 이렇게 나와요</h2>
+
+                        <div class="rally-steps">
+                            <div class="rally-step-item">
+                                <div class="step-num">1</div>
+                                <div class="step-content"><strong>서브</strong> · 엔드라인 뒤에서 1번 자리 선수가 넣어요.</div>
+                            </div>
+                            <div class="rally-step-item">
+                                <div class="step-num">2</div>
+                                <div class="step-content"><strong>리시브</strong> · 상대 서브를 받아 세터에게 띄워요.</div>
+                            </div>
+                            <div class="rally-step-item">
+                                <div class="step-num">3</div>
+                                <div class="step-content"><strong>토스</strong> · 세터가 공격수가 때리기 좋게 올려요.</div>
+                            </div>
+                            <div class="rally-step-item">
+                                <div class="step-num">4</div>
+                                <div class="step-content"><strong>공격</strong> · 스파이크로 상대 코트 바닥을 노려요.</div>
+                            </div>
+                            <div class="rally-step-item">
+                                <div class="step-num">5</div>
+                                <div class="step-content"><strong>블로킹·디그</strong> · 상대는 네트에서 막거나, 몸을 먼저 걷어 올려요.</div>
+                            </div>
+                        </div>
+
+                        <ul class="rules-bullet-list">
+                            <li>랠리 포인트제: 서브권과 상관없이 랠리를 이긴 팀이 1점을 가져가요.</li>
+                            <li>점수를 낸 팀이 다음 서브를 넣어요. 상대 서브를 받아 점수를 내면 서브권을 가져오면서 시계 방향으로 한 칸씩 자리를 돌아요(로테이션).</li>
+                            <li>전위(네트 앞 2·3·4번 자리) 3명만 블로킹과 네트 위 공격을 할 수 있어요. 후위 선수는 어택라인 뒤에서 뛰어올라야 공격할 수 있어요(백어택).</li>
+                        </ul>
+                    </div>
+
+                    <!-- 우측: 자리를 돌아가며 서브해요 (인터랙티브 코트) -->
+                    <div class="rules-section-box">
+                        <div class="court-header">
+                            <div>
+                                <div class="rules-box-title-tag">ROTATION</div>
+                                <h2 class="rules-box-title" style="margin-bottom:0;">자리를 돌아가며 서브해요</h2>
+                            </div>
+                            <button class="btn-rotate" onclick="rotateCourt()">🔄 한 칸 돌리기</button>
+                        </div>
+
+                        <div class="volleyball-court">
+                            <div class="court-net-label">상대 코트 ▲ 네트</div>
+                            
+                            <!-- 전위 영역 -->
+                            <div class="court-front-zone">
+                                <div class="court-position-box">
+                                    <div class="player-circle" id="pos4-circle">OP</div>
+                                    <div class="pos-num-label" id="pos4-label">4번</div>
+                                </div>
+                                <div class="court-position-box">
+                                    <div class="player-circle" id="pos3-circle">MB</div>
+                                    <div class="pos-num-label" id="pos3-label">3번</div>
+                                </div>
+                                <div class="court-position-box">
+                                    <div class="player-circle" id="pos2-circle">OH</div>
+                                    <div class="pos-num-label" id="pos2-label">2번</div>
+                                </div>
+                            </div>
+
+                            <div class="court-attack-line"></div>
+
+                            <!-- 후위 영역 -->
+                            <div class="court-back-zone">
+                                <div class="court-position-box">
+                                    <div class="player-circle" id="pos5-circle">OH</div>
+                                    <div class="pos-num-label" id="pos5-label">5번</div>
+                                </div>
+                                <div class="court-position-box">
+                                    <div class="player-circle libero" id="pos6-circle">L</div>
+                                    <div class="pos-num-label" id="pos6-label">6번</div>
+                                </div>
+                                <div class="court-position-box">
+                                    <div class="player-circle setter" id="pos1-circle">S</div>
+                                    <div class="pos-num-label" id="pos1-label">1번 · 서브</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="court-footer-info" id="courtInfoText">
+                            지금 서브: <strong style="color:#00E676;" id="serverPosName">세터</strong>. 서브권을 되찾을 때마다 2번 → 1번 → 6번 → 5번 → 4번 → 3번 순서로 시계 방향으로 돌아요. 노란 <strong style="color:#FFD700;">L</strong>은 후위로 내려온 미들블로커 대신 들어간 리베로예요.
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
@@ -732,8 +1115,50 @@
             renderCalendar();
         }
 
+        /* --- 배구 코트 로테이션 기능 --- */
+        let courtPositions = [
+            { posNum: "1번 · 서브", code: "S", name: "세터", isSpecial: "setter" },
+            { posNum: "2번", code: "OH", name: "아웃사이드 히터", isSpecial: "" },
+            { posNum: "3번", code: "MB", name: "미들 블로커", isSpecial: "" },
+            { posNum: "4번", code: "OP", name: "아포짓 스파이커", isSpecial: "" },
+            { posNum: "5번", code: "OH", name: "아웃사이드 히터", isSpecial: "" },
+            { posNum: "6번", code: "L", name: "리베로", isSpecial: "libero" }
+        ];
+
+        function updateCourtDisplay() {
+            // 시계 방향 순서대로 매핑: 1번(서브), 2번, 3번, 4번, 5번, 6번
+            const posMap = {
+                1: courtPositions[0],
+                2: courtPositions[1],
+                3: courtPositions[2],
+                4: courtPositions[3],
+                5: courtPositions[4],
+                6: courtPositions[5]
+            };
+
+            for (let i = 1; i <= 6; i++) {
+                const circle = document.getElementById(`pos${i}-circle`);
+                const label = document.getElementById(`pos${i}-label`);
+                const data = posMap[i];
+
+                circle.innerText = data.code;
+                circle.className = `player-circle ${data.isSpecial}`;
+                label.innerText = i === 1 ? '1번 · 서브' : `${i}번`;
+            }
+
+            document.getElementById('serverPosName').innerText = posMap[1].name;
+        }
+
+        function rotateCourt() {
+            // 시계 방향 회전 (배구 규칙: 2 -> 1 -> 6 -> 5 -> 4 -> 3)
+            const last = courtPositions.pop();
+            courtPositions.unshift(last);
+            updateCourtDisplay();
+        }
+
         renderRoster();
         renderCalendar();
+        updateCourtDisplay();
     </script>
 </body>
 </html>

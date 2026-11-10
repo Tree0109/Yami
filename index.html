@@ -1310,6 +1310,7 @@
             const grid = document.getElementById('calendarGrid');
             document.getElementById('currentMonthDisplay').innerText = `${currentYear}년 ${currentMonth}월`;
             grid.innerHTML = '';
+            
             const days = ['일', '월', '화', '수', '목', '금', '토'];
             days.forEach((d, idx) => {
                 const header = document.createElement('div');
@@ -1317,24 +1318,35 @@
                 header.innerText = d;
                 grid.appendChild(header);
             });
+            
             const firstDay = new Date(currentYear, currentMonth - 1, 1).getDay();
             const lastDate = new Date(currentYear, currentMonth, 0).getDate();
+            
             for (let i = 0; i < firstDay; i++) {
                 const empty = document.createElement('div');
                 empty.className = 'day-cell';
                 grid.appendChild(empty);
             }
+            
             for (let date = 1; date <= lastDate; date++) {
                 const cell = document.createElement('div');
                 cell.className = 'day-cell';
                 cell.innerHTML = `<div class="date">${date}</div>`;
+                
                 const dateStr = `${currentYear}-${String(currentMonth).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
+                
                 matches.filter(m => m.date === dateStr).forEach(m => {
                     const tag = document.createElement('div');
                     tag.className = `match-tag ${m.type}`;
-                    tag.innerText = m.title;
+                    
+                    // 디데이 계산 값 가져오기 (지나간 경기는 그대로 두거나 D+로 표시)
+                    const dDayText = getDday(m.date);
+                    
+                    // 태그 안에 디데이와 경기 제목 함께 표시
+                    tag.innerHTML = `<span style="font-weight:900; margin-right:4px;">[${dDayText}]</span> ${m.title}`;
                     cell.appendChild(tag);
                 });
+                
                 grid.appendChild(cell);
             }
         }
@@ -1388,9 +1400,26 @@
             setTimeout(() => { circles.forEach(c => c.classList.remove('rotate-anim')); }, 400);
         }
 
+        // 두 날짜 간의 D-day 계산 함수 (목표일 - 기준일)
+        function getDday(targetDateStr) {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); // 시간 자정 기준
+    
+            const target = new Date(targetDateStr);
+            target.setHours(0, 0, 0, 0);
+    
+            const diffTime = target - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === 0) return "D-Day";
+            if (diffDays > 0) return `D-${diffDays}`;
+            return `D+${Math.abs(diffDays)}`;
+        }
+
         renderRoster();
         renderCalendar();
         updateCourtDisplay();
     </script>
+    
 </body>
 </html>

@@ -704,24 +704,26 @@
             .rules-detail-grid { grid-template-columns: 1fr; }
         }
 
-        /* 오늘 날짜 강조 스타일 */
+        /* 오늘 날짜 강조 스타일 (확실하게 눈에 띄도록 수정) */
         .day-cell.today {
-            background: rgba(0, 86, 179, 0.08) !important;
+            background: rgba(0, 86, 179, 0.15) !important;
             border: 2px solid var(--primary) !important;
+            box-shadow: 0 0 10px rgba(0, 86, 179, 0.2);
         }
         .day-cell.today .date {
             color: var(--primary);
             font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
         .today-badge {
-            display: inline-block;
             background-color: var(--primary);
             color: white;
-            font-size: 0.7rem;
-            padding: 1px 5px;
+            font-size: 0.65rem;
+            padding: 2px 6px;
             border-radius: 4px;
-            margin-left: 6px;
-            vertical-align: middle;
+            font-weight: 700;
         }
         
     </style>
@@ -1343,7 +1345,7 @@
             const firstDay = new Date(currentYear, currentMonth - 1, 1).getDay();
             const lastDate = new Date(currentYear, currentMonth, 0).getDate();
             
-            // 오늘 날짜 구하기 (시스템 기준)
+            // 오늘 날짜 체크 (2026년 11월 11일 기준 시스템 날짜)
             const todayObj = new Date();
             const tYear = todayObj.getFullYear();
             const tMonth = todayObj.getMonth() + 1;
@@ -1359,16 +1361,17 @@
                 const cell = document.createElement('div');
                 cell.className = 'day-cell';
                 
-                // 오늘 날짜인지 체크 후 'today' 클래스 부여
+                // 오늘 날짜 판별
                 const isToday = (currentYear === tYear && currentMonth === tMonth && date === tDate);
                 if (isToday) {
                     cell.classList.add('today');
                 }
 
-                // 날짜 표시 (오늘인 경우 [TODAY] 뱃지 추가)
+                // 날짜 및 TODAY 뱃지 출력
                 cell.innerHTML = `
                     <div class="date">
-                        ${date} ${isToday ? '<span class="today-badge">TODAY</span>' : ''}
+                        <span>${date}</span>
+                        ${isToday ? '<span class="today-badge">TODAY</span>' : ''}
                     </div>
                 `;
                 
@@ -1385,7 +1388,7 @@
                 grid.appendChild(cell);
             }
         }
-
+        
         function changeMonth(delta) {
             currentMonth += delta;
             if (currentMonth > 12) { currentMonth = 1; currentYear++; }

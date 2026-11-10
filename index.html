@@ -703,6 +703,27 @@
             .sidebar-footer { display: none; }
             .rules-detail-grid { grid-template-columns: 1fr; }
         }
+
+        /* 오늘 날짜 강조 스타일 */
+        .day-cell.today {
+            background: rgba(0, 86, 179, 0.08) !important;
+            border: 2px solid var(--primary) !important;
+        }
+        .day-cell.today .date {
+            color: var(--primary);
+            font-weight: 900;
+        }
+        .today-badge {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            font-size: 0.7rem;
+            padding: 1px 5px;
+            border-radius: 4px;
+            margin-left: 6px;
+            vertical-align: middle;
+        }
+        
     </style>
 </head>
 <body>
@@ -1322,6 +1343,12 @@
             const firstDay = new Date(currentYear, currentMonth - 1, 1).getDay();
             const lastDate = new Date(currentYear, currentMonth, 0).getDate();
             
+            // 오늘 날짜 구하기 (시스템 기준)
+            const todayObj = new Date();
+            const tYear = todayObj.getFullYear();
+            const tMonth = todayObj.getMonth() + 1;
+            const tDate = todayObj.getDate();
+
             for (let i = 0; i < firstDay; i++) {
                 const empty = document.createElement('div');
                 empty.className = 'day-cell';
@@ -1331,18 +1358,26 @@
             for (let date = 1; date <= lastDate; date++) {
                 const cell = document.createElement('div');
                 cell.className = 'day-cell';
-                cell.innerHTML = `<div class="date">${date}</div>`;
+                
+                // 오늘 날짜인지 체크 후 'today' 클래스 부여
+                const isToday = (currentYear === tYear && currentMonth === tMonth && date === tDate);
+                if (isToday) {
+                    cell.classList.add('today');
+                }
+
+                // 날짜 표시 (오늘인 경우 [TODAY] 뱃지 추가)
+                cell.innerHTML = `
+                    <div class="date">
+                        ${date} ${isToday ? '<span class="today-badge">TODAY</span>' : ''}
+                    </div>
+                `;
                 
                 const dateStr = `${currentYear}-${String(currentMonth).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
                 
                 matches.filter(m => m.date === dateStr).forEach(m => {
                     const tag = document.createElement('div');
                     tag.className = `match-tag ${m.type}`;
-                    
-                    // 디데이 계산 값 가져오기 (지나간 경기는 그대로 두거나 D+로 표시)
                     const dDayText = getDday(m.date);
-                    
-                    // 태그 안에 디데이와 경기 제목 함께 표시
                     tag.innerHTML = `<span style="font-weight:900; margin-right:4px;">[${dDayText}]</span> ${m.title}`;
                     cell.appendChild(tag);
                 });

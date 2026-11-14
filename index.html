@@ -1338,12 +1338,11 @@
         function closeModal() { document.getElementById('profileModal').style.display = 'none'; }
         function closeModalDirect() { document.getElementById('profileModal').style.display = 'none'; }
 
-        // 3. 달력 렌더링 함수 (오늘 날짜 강조 + 공휴일 + 디데이 포함)
         function renderCalendar() {
             const grid = document.getElementById('calendarGrid');
             document.getElementById('currentMonthDisplay').innerText = `${currentYear}년 ${currentMonth}월`;
             grid.innerHTML = '';
-            
+
             const days = ['일', '월', '화', '수', '목', '금', '토'];
             days.forEach((d, idx) => {
                 const header = document.createElement('div');
@@ -1351,11 +1350,11 @@
                 header.innerText = d;
                 grid.appendChild(header);
             });
-            
+
             const firstDay = new Date(currentYear, currentMonth - 1, 1).getDay();
             const lastDate = new Date(currentYear, currentMonth, 0).getDate();
-            
-            // 오늘 날짜 구하기
+
+            // 오늘 날짜 체크 (2026년 11월 11일 기준 시스템 날짜)
             const todayObj = new Date();
             const tYear = todayObj.getFullYear();
             const tMonth = todayObj.getMonth() + 1;
@@ -1366,12 +1365,12 @@
                 empty.className = 'day-cell';
                 grid.appendChild(empty);
             }
-            
+
             for (let date = 1; date <= lastDate; date++) {
                 const cell = document.createElement('div');
                 cell.className = 'day-cell';
-                
-                // 오늘 날짜 체크 및 클래스 추가
+
+                // 오늘 날짜 판별
                 const isToday = (currentYear === tYear && currentMonth === tMonth && date === tDate);
                 if (isToday) {
                     cell.classList.add('today');
@@ -1384,27 +1383,21 @@
                         ${isToday ? '<span class="today-badge">TODAY</span>' : ''}
                     </div>
                 `;
-                
+
                 const dateStr = `${currentYear}-${String(currentMonth).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
-                
-                // 해당 날짜의 이벤트(경기, 공휴일) 필터링 및 출력
-                calendarEvents.filter(e => e.date === dateStr).forEach(e => {
+
+                matches.filter(m => m.date === dateStr).forEach(m => {
                     const tag = document.createElement('div');
-                    tag.className = `match-tag ${e.type}`;
-                    
-                    if (e.type === 'holiday') {
-                        tag.innerHTML = `<span>📌 ${e.title}</span>`;
-                    } else {
-                        const dDayText = getDday(e.date);
-                        tag.innerHTML = `<span style="font-weight:900; margin-right:4px;">[${dDayText}]</span> ${e.title}`;
-                    }
-                    
+                    tag.className = `match-tag ${m.type}`;
+                    const dDayText = getDday(m.date);
+                    tag.innerHTML = `<span style="font-weight:900; margin-right:4px;">[${dDayText}]</span> ${m.title}`;
                     cell.appendChild(tag);
                 });
-                
+
                 grid.appendChild(cell);
             }
         }
+
         
         function changeMonth(delta) {
             currentMonth += delta;

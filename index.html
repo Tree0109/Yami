@@ -704,7 +704,7 @@
             .rules-detail-grid { grid-template-columns: 1fr; }
         }
 
-        /* 오늘 날짜 강조 스타일 (확실하게 눈에 띄도록 수정) */
+        /* 오늘 날짜 강조 스타일 */
         .day-cell.today {
             background: rgba(0, 86, 179, 0.15) !important;
             border: 2px solid var(--primary) !important;
@@ -725,10 +725,9 @@
             border-radius: 4px;
             font-weight: 700;
         }
-        
         /* 공휴일/기타 일정 태그 스타일 */
         .match-tag.holiday {
-            background-color: #EF4444 !important; /* 빨간색 계열 */
+            background-color: #EF4444 !important;
             color: #FFFFFF;
         }
 
@@ -1349,6 +1348,7 @@
         function closeModal() { document.getElementById('profileModal').style.display = 'none'; }
         function closeModalDirect() { document.getElementById('profileModal').style.display = 'none'; }
 
+        // 3. 달력 렌더링 함수 (오늘 날짜 강조 + 공휴일 + 디데이 포함)
         function renderCalendar() {
             const grid = document.getElementById('calendarGrid');
             document.getElementById('currentMonthDisplay').innerText = `${currentYear}년 ${currentMonth}월`;
@@ -1365,6 +1365,7 @@
             const firstDay = new Date(currentYear, currentMonth - 1, 1).getDay();
             const lastDate = new Date(currentYear, currentMonth, 0).getDate();
             
+            // 오늘 날짜 구하기
             const todayObj = new Date();
             const tYear = todayObj.getFullYear();
             const tMonth = todayObj.getMonth() + 1;
@@ -1380,11 +1381,13 @@
                 const cell = document.createElement('div');
                 cell.className = 'day-cell';
                 
+                // 오늘 날짜 체크 및 클래스 추가
                 const isToday = (currentYear === tYear && currentMonth === tMonth && date === tDate);
                 if (isToday) {
                     cell.classList.add('today');
                 }
 
+                // 날짜 및 TODAY 뱃지 출력
                 cell.innerHTML = `
                     <div class="date">
                         <span>${date}</span>
@@ -1394,16 +1397,14 @@
                 
                 const dateStr = `${currentYear}-${String(currentMonth).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
                 
-                // matches 대신 calendarEvents 배열 사용
+                // 해당 날짜의 이벤트(경기, 공휴일) 필터링 및 출력
                 calendarEvents.filter(e => e.date === dateStr).forEach(e => {
                     const tag = document.createElement('div');
                     tag.className = `match-tag ${e.type}`;
                     
                     if (e.type === 'holiday') {
-                        // 공휴일은 D-day 없이 타이틀만 깔끔하게 출력
                         tag.innerHTML = `<span>📌 ${e.title}</span>`;
                     } else {
-                        // 경기는 기존처럼 디데이와 함께 출력
                         const dDayText = getDday(e.date);
                         tag.innerHTML = `<span style="font-weight:900; margin-right:4px;">[${dDayText}]</span> ${e.title}`;
                     }

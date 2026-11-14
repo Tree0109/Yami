@@ -726,6 +726,13 @@
             font-weight: 700;
         }
         
+        /* 공휴일/기타 일정 태그 스타일 */
+        .match-tag.holiday {
+            background-color: #EF4444 !important; /* 빨간색 계열 */
+            color: #FFFFFF;
+        }
+
+        
     </style>
 </head>
 <body>
@@ -1221,7 +1228,7 @@
             { name: "유가람", pos: "L", type: "L", birth: "2005.09.30", height: "166cm", desc: "투지 넘치는 수비 리베로.", img: "rkfka.webp" }
         ];
 
-        const matches = [
+        const calenderEvents = [
             // 2026년 10월 (KOVO컵)
             { date: "2026-10-11", title: "컵 1차전 vs 기업은행", location: "여수", type: "done" },
             { date: "2026-10-13", title: "컵 2차전 vs 정관장", location: "여수", type: "done" },
@@ -1282,6 +1289,18 @@
             { date: "2027-04-11", title: "PO 종료", location: "", type: "cup" },
             { date: "2027-04-13", title: "챔프전 시작", location: "", type: "cup" },
             { date: "2027-04-21", title: "챔프전 종료", location: "", type: "cup" }
+
+            { date: "2026-10-03", title: "개천절", type: "holiday" },
+            { date: "2026-10-09", title: "한글날", type: "holiday" },
+            { date: "2026-12-25", title: "성탄절", type: "holiday" },
+            { date: "2027-01-01", title: "신정", type: "holiday" },
+            { date: "2027-01-09", title: "야미 생일💜", type: "holiday" },
+            { date: "2027-02-06", title: "설날 연휴", type: "holiday" },
+            { date: "2027-02-07", title: "설날 연휴", type: "holiday" },
+            { date: "2027-02-08", title: "설날 연휴", type: "holiday" },
+            { date: "2027-02-09", title: "설날 연휴(대체)", type: "holiday" }
+
+
 
         ];
 
@@ -1346,7 +1365,6 @@
             const firstDay = new Date(currentYear, currentMonth - 1, 1).getDay();
             const lastDate = new Date(currentYear, currentMonth, 0).getDate();
             
-            // 오늘 날짜 체크 (2026년 11월 11일 기준 시스템 날짜)
             const todayObj = new Date();
             const tYear = todayObj.getFullYear();
             const tMonth = todayObj.getMonth() + 1;
@@ -1362,13 +1380,11 @@
                 const cell = document.createElement('div');
                 cell.className = 'day-cell';
                 
-                // 오늘 날짜 판별
                 const isToday = (currentYear === tYear && currentMonth === tMonth && date === tDate);
                 if (isToday) {
                     cell.classList.add('today');
                 }
 
-                // 날짜 및 TODAY 뱃지 출력
                 cell.innerHTML = `
                     <div class="date">
                         <span>${date}</span>
@@ -1378,11 +1394,20 @@
                 
                 const dateStr = `${currentYear}-${String(currentMonth).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
                 
-                matches.filter(m => m.date === dateStr).forEach(m => {
+                // matches 대신 calendarEvents 배열 사용
+                calendarEvents.filter(e => e.date === dateStr).forEach(e => {
                     const tag = document.createElement('div');
-                    tag.className = `match-tag ${m.type}`;
-                    const dDayText = getDday(m.date);
-                    tag.innerHTML = `<span style="font-weight:900; margin-right:4px;">[${dDayText}]</span> ${m.title}`;
+                    tag.className = `match-tag ${e.type}`;
+                    
+                    if (e.type === 'holiday') {
+                        // 공휴일은 D-day 없이 타이틀만 깔끔하게 출력
+                        tag.innerHTML = `<span>📌 ${e.title}</span>`;
+                    } else {
+                        // 경기는 기존처럼 디데이와 함께 출력
+                        const dDayText = getDday(e.date);
+                        tag.innerHTML = `<span style="font-weight:900; margin-right:4px;">[${dDayText}]</span> ${e.title}`;
+                    }
+                    
                     cell.appendChild(tag);
                 });
                 
